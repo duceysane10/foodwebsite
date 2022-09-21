@@ -17,6 +17,7 @@ use Depicter\Services\ImportService;
 use Depicter\Services\MediaBridge;
 use Depicter\Services\RemoteAPIService;
 use Depicter\Services\StorageService;
+use Depicter\Services\AuthorizationService;
 use Depicter\WordPress\DeactivationFeedbackService;
 use Depicter\WordPress\FileUploaderService;
 use WPEmergeAppCore\AppCore\AppCore;
@@ -139,4 +140,9 @@ final class AppMixin
 	 * @return Symbols
 	 */
 	public static function symbolsProvider(){}
+
+	/**
+	 * @return AuthorizationService
+	 */
+	public static function authorization(){}
 }

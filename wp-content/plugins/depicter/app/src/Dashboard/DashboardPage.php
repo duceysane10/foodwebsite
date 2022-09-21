@@ -3,6 +3,7 @@ namespace Depicter\Dashboard;
 
 use Averta\Core\Utility\Arr;
 use Averta\WordPress\Utility\Escape;
+use Averta\WordPress\Utility\JSON;
 use Averta\WordPress\Utility\Plugin;
 use Depicter\Security\CSRF;
 
@@ -10,6 +11,7 @@ class DashboardPage
 {
 
 	const HOOK_SUFFIX = 'toplevel_page_depicter-dashboard';
+	const PAGE_ID = 'depicter-dashboard';
 
 	/**
 	 * @var string
@@ -20,6 +22,7 @@ class DashboardPage
 		add_action( 'admin_menu', [ $this, 'registerPage' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueueScripts' ] );
 		add_action( 'admin_head', array( $this, 'disable_admin_notices' ) );
+		add_action( 'admin_init', [ $this, 'externalPageRedirect' ] );
 	}
 
 	/**
@@ -32,12 +35,59 @@ class DashboardPage
 			__('Depicter', 'depicter'),
 			__('Depicter', 'depicter'),
 			'manage_options',
-			'depicter-dashboard',
+			self::PAGE_ID,
 			[ $this, 'render' ], // called to output the content for this page
 			\Depicter::core()->assets()->getUrl() . '/resources/images/svg/wp-logo.svg'
 		);
 
+		add_submenu_page(
+			self::PAGE_ID,
+			__( 'Dashboard', 'depicter' ),
+			__( 'Dashboard', 'depicter' ),
+			'manage_options',
+			self::PAGE_ID
+		);
+
+		add_submenu_page(
+			self::PAGE_ID,
+			__( 'Add New', 'depicter' ),
+			__( 'Add New', 'depicter' ),
+			'manage_options',
+			self::PAGE_ID . '-create-slider',
+			[ $this, 'externalPageRedirect' ]
+		);
+
+		add_submenu_page(
+			self::PAGE_ID,
+			__( 'Support', 'depicter' ),
+			__( 'Support', 'depicter' ),
+			'manage_options',
+			self::PAGE_ID . '-goto-support',
+			[ $this, 'externalPageRedirect' ]
+		);
+
 		add_action( 'admin_print_scripts-' . $this->hook_suffix, [ $this, 'printScripts' ] );
+	}
+
+	/**
+	 * Process redirect after clicking on Depicter admin menu
+	 *
+	 * @return void
+	 */
+	public function externalPageRedirect(){
+		if ( empty( $_GET['page'] ) ) {
+			return;
+		}
+
+		if ( self::PAGE_ID . '-create-slider' === $_GET['page'] ) {
+			wp_redirect( menu_page_url( self::PAGE_ID, false ) . '#/templates/custom' );
+			die;
+		}
+
+		if ( self::PAGE_ID . '-goto-support' === $_GET['page'] ) {
+			wp_redirect( 'https://depicter.com/?utm_source=wp-submenu#support' );
+			die;
+		}
 	}
 
 	/**
@@ -69,7 +119,7 @@ class DashboardPage
 
 		// Enqueue scripts.
 		\Depicter::core()->assets()->enqueueScript(
-			'depicter-dashboard-js',
+			'depicter--dashboard',
 			\Depicter::core()->assets()->getUrl() . '/resources/scripts/dashboard/depicter-dashboard.js',
 			[],
 			true
@@ -77,7 +127,7 @@ class DashboardPage
 
 		// Enqueue styles.
 		\Depicter::core()->assets()->enqueueStyle(
-			'depicter-dashboard-css',
+			'depicter-dashboard',
 			\Depicter::core()->assets()->getUrl() . '/resources/styles/dashboard/index.css'
 		);
 	}
@@ -92,53 +142,33 @@ class DashboardPage
 		global $wp_version;
 		$currentUser = wp_get_current_user();
 
-		wp_localize_script('depicter-dashboard-js', 'depicterDashboardEnv',
-		    Arr::merge( $this->getCommonEnvParams(), [
+		wp_add_inline_script('depicter--dashboard', 'window.depicterEnv = '. JSON::encode(
+		    [
+				'wpVersion'   => $wp_version,
+				"scriptsPath" => \Depicter::core()->assets()->getUrl(). '/resources/scripts/dashboard/',
+				'clientKey'   => \Depicter::options()->get( 'client_key', 'anon' ),
+				'csrfToken'   => \Depicter::csrf()->getToken( CSRF::DASHBOARD_ACTION ),
+				'updateInfo' => [
+					'from' => \Depicter::options()->get('version_previous') ?: null,
+					'to'   => \Depicter::options()->get('version')
+				],
 				"assetsAPI"   => Escape::url('https://wp-api.depicter.com/' ),
 				"wpRestApi"   => Escape::url( get_rest_url() ),
-				"dashboardAPI"  => admin_url( 'admin-ajax.php' ),
+				"pluginAPI"   => admin_url( 'admin-ajax.php' ),
 				"editorPath"  => \Depicter::editor()->getEditUrl( '__id__' ),
 				"documentPreviewPath" => \Depicter::editor()->getEditUrl( '__id__' ),
 				'user' => [
-					'subscriptionPlan' => \Depicter::options()->get('user_plan', 'free-user'),
+					'tier'  => \Depicter::options()->get('user_plan', 'free-user'),
 					'name'  => Escape::html( $currentUser->display_name ),
 					'email' => Escape::html( $currentUser->user_email   ),
-					'hasSubscribed' => !! \Depicter::options()->get('has_subscribed')
+					'joinedNewsletter' => !! \Depicter::options()->get('has_subscribed')
+				],
+			    'integrations' => [
+					'woocommerce' => Plugin::isActive( 'woocommerce/woocommerce.php' )
 				]
-			])
-		);
-
-		wp_localize_script('depicter-dashboard-js', 'depicterKitEnv',
-			Arr::merge( $this->getCommonEnvParams(), [
-				'editorAPI'   => admin_url( 'admin-ajax.php' ),
-				'user' => [
-					'subscriptionPlan' => \Depicter::options()->get('user_plan', 'free-user')
-				]
-			])
-		);
-
-	}
-
-	/**
-	 * Get common ENV variables
-	 *
-	 * @return array
-	 */
-	protected function getCommonEnvParams(){
-		global $wp_version;
-
-		return [
-			'wpVersion'   => $wp_version,
-			"scriptsPath" => \Depicter::core()->assets()->getUrl(). '/resources/scripts/dashboard/',
-			'clientKey'   => \Depicter::options()->get( 'client_key', 'anon' ),
-			'csrfToken'   => \Depicter::csrf()->getToken( CSRF::DASHBOARD_ACTION ),
-			'updateInfo' => [
-				'from' => \Depicter::options()->get('version_previous') ?: null,
-				'to'   => \Depicter::options()->get('version')
-			],
-			'integrations' => [
-				'woocommerce' => Plugin::isActive( 'woocommerce/woocommerce.php' )
 			]
-		];
+		), 'before' );
+
 	}
+
 }

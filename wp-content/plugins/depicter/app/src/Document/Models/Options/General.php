@@ -6,14 +6,9 @@ use Depicter\Document\CSS\Breakpoints;
 class General
 {
 	/**
-	 * @var int
+	 * @var string
 	 */
 	public $fullscreenMargin;
-
-	/**
-	 * @var bool
-	 */
-	public $autoHeight;
 
 	/**
 	 * @var bool
@@ -59,24 +54,39 @@ class General
 			'default' => []
 		];
 
-		// ignore min and max height if autoHeight is enabled or keep aspect ratio is disable
-		if( $this->getAllOptions()->getLayout() !== 'fullscreen' && ! $this->autoHeight && $this->keepAspect ) {
+		$isFullscreen = $this->getAllOptions()->getLayout() === 'fullscreen';
 
-			$heightSizes = $this->getAllOptions()->getSizes('height', false );
-			foreach ( $heightSizes as $device => $height ){
-				// always add max-height for desktop size
-				// and add max-height for other breakpoints if max-height is less than breakpoint content height
-				if( $device === 'default' || $this->maxHeight < $height ){
-					$styles[ $device ][ 'max-height' ] = $height . 'px';
-				}
-				if( ! empty( $this->minHeight ) ){
-					$styles[ $device ]['min-height'] = $this->minHeight;
-				}
-			}
+		if( $isFullscreen || $this->keepAspect ) {
+			$styles = $this->getMinHeightStyles( $styles, true );
+		}
+
+		if( ! empty( $this->maxHeight->value )  && $isFullscreen ){
+			$styles[ 'default' ]['max-height'] = $this->maxHeight;
 		}
 
 		if( $this->backgroundColor ){
 			$styles['default']['background-color'] = $this->backgroundColor;
+		}
+
+		return $styles;
+	}
+
+	public function getMinHeightStyles( $styles = [], $keepAspect = null ){
+		if( empty( $styles ) ){
+			$styles = [
+				'default' => []
+			];
+		}
+
+		$keepAspect = $keepAspect ?? $this->keepAspect;
+
+		if( $keepAspect ) {
+			$heightSizes = $this->getAllOptions()->getSizes('height', false );
+			foreach ( $heightSizes as $device => $height ){
+				if( ! empty( $this->minHeight->value ) && ( $device === 'default' || $height > $this->minHeight->value ) ){
+					$styles[ $device ]['min-height'] = $this->minHeight;
+				}
+			}
 		}
 
 		return $styles;
@@ -95,8 +105,10 @@ class General
 		$layout = $this->getAllOptions()->getLayout();
 
 		if( $layout == 'fullscreen' ){
-			if( $this->fullscreenMargin ){
+			if( is_numeric( $this->fullscreenMargin ) ){
 				$styles['default']['height'] = "calc( 100vh - {$this->fullscreenMargin}px )";
+			} elseif ( $this->fullscreenMargin === 'auto' ) {
+				$styles['default']['height'] = "100vh";
 			}
 		} elseif( $layout == 'boxed' ){
 			$responsiveSizes = $this->getAllOptions()->getSizes('width', true);

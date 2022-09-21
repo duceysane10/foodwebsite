@@ -75,24 +75,25 @@ class SliderWidget extends Widget_Base {
 	}
 
 	/**
-	 * load dependent styles
-	 *
-	 * @return array
-	 */
-	public function get_style_depends() {
-		$styles = \Depicter::front()->assets()->registerStyles();
-		return array_keys( $styles );
-	}
+     * load dependent styles
+     *
+     * @return array
+     */
+    public function get_style_depends() {
+        $styles = \Depicter::front()->assets()->enqueueStyles();
+        return array_keys( $styles );
+    }
 
-	/**
-	 * load dependent scripts
-	 *
-	 * @return array
-	 */
-	public function get_script_depends() {
-		$scripts = \Depicter::front()->assets()->registerScripts();
-		return array_keys( $scripts );
-	}
+    /**
+     * load dependent scripts
+     *
+     * @return array
+     */
+    public function get_script_depends() {
+        $scripts = \Depicter::front()->assets()->enqueueScripts();
+        return array_keys( $scripts );
+    }
+
 
 	public function getSlidersList() {
 		$list = [
@@ -176,6 +177,8 @@ class SliderWidget extends Widget_Base {
 
 		if ( $settings['slider_id'] ) {
 			echo \Depicter::front()->render()->document( $settings['slider_id'] );
+		} else {
+			echo esc_html__('Please select a Depicter slider','depicter' );
 		}
 
 	}

@@ -34,7 +34,8 @@ class Migration{
 	 * Constructor
 	 */
 	public function __construct() {
-		add_filter( 'wpmu_drop_tables', array( $this, 'wpmu_drop_tables' ), 11, 2 );
+		add_filter( 'wpmu_drop_tables'  , array( $this, 'wpmu_drop_tables'    ), 11, 2 );
+		add_action( 'wp_initialize_site', array( $this, 'ms_site_initialized' ), 12, 2 );
 	}
 
 	/**
@@ -157,6 +158,39 @@ class Migration{
 		return true;
 	}
 
+    /**
+	 * Inserts custom tables for a new site into the database.
+	 *
+     * @since WP 5.1.0
+     *
+	 * @param int|WP_Site $site_id Site ID or object.
+	 * @param array       $args
+	 *
+	 * @return bool|null
+	 */
+	public function ms_site_initialized( $site_id, array $args = array() ){
+		if ( empty( $site_id ) ) {
+			return null;
+		}
+
+		if ( ! $site = get_site( $site_id ) ) {
+			return null;
+		}
+
+		$switch = false;
+		if ( get_current_blog_id() !== $site->id ) {
+			$switch = true;
+			switch_to_blog( $site->id );
+		}
+
+		$this->migrate( true );
+
+		if ( $switch ) {
+			restore_current_blog();
+        }
+
+		return true;
+	}
 
 	/**
 	 * Drop all custom tables of this class

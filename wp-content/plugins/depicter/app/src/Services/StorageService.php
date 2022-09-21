@@ -52,4 +52,22 @@ class StorageService
 		return $this->uploads()->getBaseDirectory() . '/'. self::UPLOADS_FOLDER_NAME;
 	}
 
+	/**
+	 * Retrieves the special plugin's folder in uploads directory for CSS files
+	 *
+	 * @return string
+	 */
+	public function getCssUploadsDirectory(){
+		return $this->uploads()->getBaseDirectory() . '/'. self::UPLOADS_FOLDER_NAME . '/css';
+	}
+
+	/**
+	 * Retrieves the url of special plugin's folder in uploads directory for CSS files
+	 *
+	 * @return string
+	 */
+	public function getCssUploadsUrl(){
+		return $this->uploads()->getBaseUrl() . '/'. self::UPLOADS_FOLDER_NAME . '/css';
+	}
+
 }

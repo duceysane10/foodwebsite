@@ -128,10 +128,15 @@ class All
 	public function getBeforeInitStyles(){
 		$this->general = $this->general ?? new General();
 		$this->general->setAllOptions( $this );
-		return $this->general->getBeforeInitStyles();
 
+		return $this->general->getBeforeInitStyles();
 	}
 
+	/**
+	 * get styles for layers wrapper
+	 *
+	 * @return array
+	 */
 	public function getLayersWrapperStyles(){
 		$styles = [];
 		if( ! empty( $this->wrapperSideSpace ) ){
@@ -139,6 +144,18 @@ class All
 		}
 
 		return $styles;
+	}
+
+	/**
+	 * Get general section styles
+	 *
+	 * @return array
+	 */
+	public function getSectionGeneralStyles(){
+		$this->general = $this->general ?? new General();
+		$this->general->setAllOptions( $this );
+
+		return $this->general->getMinHeightStyles();
 	}
 
 	/**

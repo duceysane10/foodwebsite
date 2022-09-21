@@ -17,21 +17,30 @@ class EmbedVideo extends Models\Element
 
 		$videoUrl = !empty( $this->options->source ) ? $this->options->source : '';
 
-		$videoAttrs = [
+		$elementsAttrs = [
 			'data-type' => 'video'
 		];
 
 		if( isset( $this->options->autoPlay ) ){
-			$videoAttrs['data-autoplay'] = $this->options->autoPlay ? "true" : "false";
+			$elementsAttrs['data-autoplay'] = $this->options->autoPlay ? "true" : "false";
 		}
 		if( isset( $this->options->autoPause ) ){
-			$videoAttrs['data-auto-pause'] = $this->options->autoPause ? "true" : "false";
+			$elementsAttrs['data-auto-pause'] = $this->options->autoPause ? "true" : "false";
 		}
 		if( isset( $this->options->mute ) ){
-			$videoAttrs['data-muted'] = $this->options->mute ? "true" : "false";
+			$elementsAttrs['data-muted'] = $this->options->mute ? "true" : "false";
 		}
 
-		$args = Arr::merge( $this->getDefaultAttributes(), $videoAttrs );
+		if( isset( $this->options->goNextSection ) ){
+			$elementsAttrs['data-goto-next'] = $this->options->goNextSection ? "true" : "false";
+		}
+		if( isset( $this->options->loop ) ){
+			$elementsAttrs['data-loop'] = $this->options->loop ? "true" : "false";
+		} else {
+			$elementsAttrs['data-loop'] = "true";
+		}
+
+		$args = Arr::merge( $this->getDefaultAttributes(), $elementsAttrs );
 
 		$div = Html::div( $args );
 

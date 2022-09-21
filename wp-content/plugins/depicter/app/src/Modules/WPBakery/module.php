@@ -23,7 +23,7 @@ class Module {
      * @return void
      */
     public function map_vc_shortcodes() {
-        
+
         vc_map([
             'name' => __( 'Depicter', 'depicter' ),
             'base' => 'depicter',
@@ -37,20 +37,21 @@ class Module {
                     'admin_label' => true,
                     'heading'     => __( 'Select Slider', 'depicter' ),
                     'param_name'  => 'id',
-                    'value'       => $this->get_sliders_list(),      
+                    'value'       => $this->get_sliders_list(),
                 ]
             ]
         ]);
     }
 
-    /**
-     * get sliders list
-     *
-     * @return array
-     */
+	/**
+	 * get sliders list
+	 *
+	 * @return array
+	 * @throws \Exception
+	 */
     public function get_sliders_list() {
-        if ( ! isset( $_POST['action'] ) || $_POST['action'] != 'vc_edit_form' ) { 
-            return[];
+        if ( ! isset( $_POST['action'] ) || $_POST['action'] != 'vc_edit_form' ) {
+            return [];
         }
 
 		$list = [

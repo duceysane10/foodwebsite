@@ -258,6 +258,10 @@ class Element
 		$classes[] = $this->getSelector();
 		$classes[] = $this->getDataSheetClassName();
 
+		if( $this->options->className ?? 0 ){
+			$classes[] = $this->options->className;
+		}
+
 		if ( isset( $this->visible->default ) && $this->visible->default === false ) {
 			$classes[] = 'depicter-hide-on-desktop ';
 		}
@@ -270,7 +274,7 @@ class Element
 			$classes[] = 'depicter-hide-on-mobile ';
 		}
 
-		return trim( implode(' ', $classes) );
+		return trim( implode(' ', $classes ) );
 	}
 
 	/**

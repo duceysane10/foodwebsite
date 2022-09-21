@@ -27,7 +27,7 @@ class Render
 	 * @return string|void
 	 */
 	public function document( $documentID = 0, $args = [] ){
-		$isPrivilegedUser = current_user_can('manage_options') || current_user_can('publish_depicter');
+		$isPrivilegedUser = \Depicter::authorization()->currentUserCan( [ 'manage_options', 'publish_depicter' ] );
 
 		$defaults = [
 			'loadStyleMode' => 'auto',// ["auto", "inline", "file"]."auto" loads custom css if available, otherwise prints styles inline
@@ -42,7 +42,10 @@ class Render
 		if ( $isPrivilegedUser ) {
 			$args['status'] = ['publish', 'draft'];
 			$args['useCache'] = false;
+			$args['loadStyleMode'] = 'inline';
 		}
+
+		$args['isPrivilegedUser'] = $isPrivilegedUser;
 
 		$output = $this->getDocument( $documentID, $args ); // retrieves escaped slider markup
 
@@ -66,8 +69,8 @@ class Render
 		if ( empty( $documentID ) ) {
 	        return esc_html__( 'Slider ID is required.', 'depicter' );
 	    }
-		if( $args['useCache'] && ( false !== $cacheOutput = $this->getDocumentCache( $documentID ) ) ){
-			return $cacheOutput . '<span hidden>Depicter Cache hit!</span>';
+		if( $args['useCache'] && ( false !== $cacheOutput = $this->getDocumentCache( $documentID, $args ) ) ){
+			return $cacheOutput . '<span hidden>Depicter cache hit.</span>';
 		}
 
 		$output = '';
@@ -75,12 +78,9 @@ class Render
 		$styleGeneratorArgs = isset( $args['addImportant'] ) ? [ 'addImportant' => $args['addImportant'] ] : [];
 
 		try{
-			if ( ! is_numeric( $documentID ) && is_string( $documentID ) ) {
-		        if ( ! $document = \Depicter::document()->repository()->findOne( null, ['slug' => $documentID] ) ) {
-		            return esc_html__( 'Slider alias not found.', 'depicter' );
-		        }
-		        $documentID = $document->getID();
-		    }
+			if( ! $documentID = \Depicter::document()->getID( $documentID ) ){
+				return esc_html__( 'Slider alias not found.', 'depicter' );
+			}
 
 			if( $args['showUnpublishedNotice'] ){
 				$output .= $this->getUnPublishedNoticeMarkup( $documentID );
@@ -93,11 +93,15 @@ class Render
 				$output .= $documentModel->prepare()->render();
 				$documentModel->styleGenerator( $styleGeneratorArgs );
 
+				if( $args['isPrivilegedUser'] ){
+					$documentModel->saveCss();
+				}
+
 				if( ( $args['loadStyleMode'] == 'inline' ) ){
 					$output = $documentModel->getInlineCssTag() . $output;
 
-				} elseif( ( $args['loadStyleMode'] == 'auto' ) ) {
-					// fallback to inline if css file cannot be generated
+				// fallback to inline if css file cannot be generated
+				} elseif( in_array( $args['loadStyleMode'], [ 'auto', 'file' ] ) ) {
 					if( ! $documentModel->getCssFileUrl() ){
 						$output = $documentModel->getInlineCssTag() . $output;
 					}
@@ -105,30 +109,17 @@ class Render
 
 				//----------
 
-				$cssLinksToEnqueue = $documentModel->getCustomCssFiles( [ 'google-font' ] );
+				$cssLinksToEnqueue = $documentModel->getCustomCssFiles( 'all' );
 
-				if( ( $args['loadStyleMode'] == 'auto' ) ) {
-					if( $documentModel->getCssFileUrl() ){
-						$cssLinksToEnqueue = $documentModel->getCustomCssFiles( 'all' );
-					}
-
-				} elseif( $args['loadStyleMode'] == 'file' ) {
-					$cssLinksToEnqueue = $documentModel->getCustomCssFiles( 'all' );
-				}
-
-				if( $args['useCache'] ){
-					$this->cache->set( $documentID . '_css_files', $cssLinksToEnqueue, WEEK_IN_SECONDS );
-				}
-
-				$this->enqueueCustomStyles( $cssLinksToEnqueue );
+				$this->cache->set( $documentID . '_css_files', $cssLinksToEnqueue, WEEK_IN_SECONDS );
 
 				// sanitize the output before caching
 		        $output = Sanitize::html( $output, null, 'depicter/output' );
 
 				if( $args['useCache'] ){
-					$this->cache->set( $documentID, $output, WEEK_IN_SECONDS );
+					$this->setDocumentCache( $documentID, $output, $args );
 				} else {
-					$this->cache->delete( $documentID );
+					$this->deleteDocumentCache( $documentID, $args );
 				}
 			}
 
@@ -143,36 +134,51 @@ class Render
 	/**
 	 * Retrieves the cached markup and enqueues custom styles
 	 *
-	 * @param $documentId
+	 * @param int   $documentID
+	 * @param array $args
 	 *
 	 * @return bool|mixed
 	 */
-	protected function getDocumentCache( $documentId ){
-		if( ( false !== $cacheOutput = $this->cache->get( $documentId ) ) && !empty( $cacheOutput ) ){
-			if( false !== $cssLinksToEnqueue = $this->cache->get( $documentId . '_css_files' ) ){
-				$this->enqueueCustomStyles( $cssLinksToEnqueue );
-			}
+	protected function getDocumentCache( $documentID, $args = [] ){
+		if( ( false !== $cacheOutput = $this->cache->get( $documentID ."_". $args['loadStyleMode'] ) ) && !empty( $cacheOutput ) ){
 			return $cacheOutput;
 		}
-
 		return false;
 	}
 
 	/**
-	 * Enqueues css links in footer
+	 * Cache markup and styles
 	 *
-	 * @param $cssLinksToEnqueue
+	 * @param int    $documentID
+	 * @param string $content
+	 * @param array  $args
+	 *
+	 * @return bool
 	 */
-	protected function enqueueCustomStyles( $cssLinksToEnqueue ){
-		if( $cssLinksToEnqueue && is_array( $cssLinksToEnqueue ) ){
-			add_action( 'wp_footer', function() use ( $cssLinksToEnqueue ){
-				foreach( $cssLinksToEnqueue as $cssId => $cssLink ){
-					\Depicter::core()->assets()->enqueueStyle( $cssId, $cssLink );
-				}
-			} );
-		}
+	protected function setDocumentCache( $documentID, $content, $args = [] ){
+		return $this->cache->set( $documentID ."_". $args['loadStyleMode'], $content, WEEK_IN_SECONDS );
 	}
 
+	/**
+	 * Flushes a document cache
+	 *
+	 * @param int    $documentID
+	 * @param array  $args
+	 *
+	 * @return bool
+	 */
+	protected function deleteDocumentCache( $documentID, $args = [] ){
+		return $this->cache->delete( $documentID ."_". $args['loadStyleMode'] );
+	}
+
+	/**
+	 * Get unpublished notice markup if document is not published
+	 *
+	 * @param int   $documentID
+	 * @param array $args
+	 *
+	 * @return string
+	 */
 	public function getUnPublishedNoticeMarkup( $documentID, $args = [] ){
 		if( $document = \Depicter::document()->repository()->findById( $documentID ) ){
 			$document = $document->toArray();

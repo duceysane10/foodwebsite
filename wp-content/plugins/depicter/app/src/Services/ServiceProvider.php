@@ -71,6 +71,11 @@ class ServiceProvider implements ServiceProviderInterface
 		};
 		$app->alias( 'importService', 'depicter.import.service' );
 
+		$container[ 'depicter.security.authorization' ] = function () {
+			return new AuthorizationService();
+		};
+		$app->alias( 'authorization', 'depicter.security.authorization' );
+
 	}
 
 	/**

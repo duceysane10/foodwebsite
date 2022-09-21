@@ -1,7 +1,7 @@
 <?php
 
 namespace Depicter\Modules;
-
+;
 use Depicter\Modules\Elementor\SliderWidget;
 use WPEmerge\ServiceProviders\ServiceProviderInterface;
 
@@ -13,22 +13,17 @@ class ModulesServiceProvider implements ServiceProviderInterface {
 	 * {@inheritDoc}
 	 */
 	public function register( $container ) {
-		// Nothing to register.
+		add_action( 'plugins_loaded', [ $this, 'elementorModulesLoaded' ] );
+		$this->modulesLoaded();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function bootstrap( $container ) {
-
-		if ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-			add_action( 'elementor/widgets/register', [$this, 'registerElementorWidgets'] );
-		} else {
-			add_action( 'elementor/widgets/widgets_registered', [$this, 'registerElementorWidgets'] );
+	public function elementorModulesLoaded() {
+		if( defined( 'ELEMENTOR_VERSION' ) ){
+			New Elementor\Module();
 		}
+	}
 
-		add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'enqueueEditorScripts'] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'loadElementorWidgetScript'] );
+	public function modulesLoaded(){
 
 		add_action( 'init', [ $this, 'initGutenbergBlock'] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'loadGutenbergWidgetScripts'] );
@@ -41,25 +36,10 @@ class ModulesServiceProvider implements ServiceProviderInterface {
 	}
 
 	/**
-	 * Register Elementor widgets.
-	 *
-	 * @return void
+	 * {@inheritDoc}
 	 */
-	public function registerElementorWidgets() {
-		if ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '3.5.0', '>=' ) ) {
-			\Elementor\Plugin::instance()->widgets_manager->register( new SliderWidget() );
-		} else {
-			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new SliderWidget() );
-		}
-	}
+	public function bootstrap( $container ) {
 
-	/**
-	 * load required script for elementor widget in elementor editor env
-	 */
-	public function loadElementorWidgetScript() {
-		if ( class_exists( '\Elementor\Plugin' ) && \Elementor\Plugin::$instance->preview->is_preview_mode() ) {
-			\Depicter::front()->assets()->enqueueScripts('widget');
-		}
 	}
 
 	public function load_beaver_builder_widget_script() {

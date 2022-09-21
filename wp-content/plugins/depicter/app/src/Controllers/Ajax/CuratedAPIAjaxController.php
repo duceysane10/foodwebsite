@@ -230,8 +230,11 @@ class CuratedAPIAjaxController
 	{
 
 		$phase = !empty( $request->query('phase') ) ? Sanitize::textfield( $request->query('phase') ) : '';
-
 		$options = [ 'phase' => $phase ];
+
+		if( !empty( $request->query('elementType') ) ){
+			$options['elementType'] = Sanitize::textfield( $request->query('elementType') );
+		}
 
 		try {
 			return \Depicter::json( AssetsAPIService::getAnimationsCategories( $options ) );

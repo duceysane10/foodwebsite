@@ -89,16 +89,15 @@ class Script
 			$attributes['slideshow'] = $slideShow;
 		}
 
-		if( isset( $document->options->general->autoHeight ) && $document->options->getLayout() !== 'fullscreen' ){
-			$attributes['autoHeight'] = $document->options->general->autoHeight;
-		}
-
 		if( !empty( $document->options->navigation->swipe->enable ) ){
 			if( isset( $document->options->navigation->swipe->mouseSwipe ) ){
 				$attributes['mouseSwipe'] = $document->options->navigation->swipe->mouseSwipe;
 			}
 			if( isset( $document->options->navigation->swipe->touchSwipe ) ){
 				$attributes['touchSwipe'] = $document->options->navigation->swipe->touchSwipe;
+			}
+			if( isset( $document->options->navigation->swipe->direction ) ){
+				$attributes['swipeDir'] = $document->options->navigation->swipe->direction;
 			}
 		} else {
 			$attributes['mouseSwipe'] = false;

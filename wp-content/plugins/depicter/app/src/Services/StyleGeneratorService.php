@@ -26,7 +26,7 @@ class StyleGeneratorService
 	 *
 	 * @var bool
 	 */
-	protected $isWritable = true;
+	protected $isWritable = null;
 
 	/**
 	 * Class extra options
@@ -170,11 +170,11 @@ class StyleGeneratorService
 	 * @return bool|string   false on not founding the file
 	 */
 	public function getCssFilePath( $checkExistence = false ){
-		$cssFile = \Depicter::storage()->getPluginUploadsDirectory() . '/css/' . $this->getDocumentID() . '.css';
+		$cssFilePath = \Depicter::storage()->getCssUploadsDirectory() . '/' . $this->getDocumentID() . '.css';
 		if( $checkExistence ){
-			return file_exists( $cssFile ) ? $cssFile : false;
+			return file_exists( $cssFilePath ) ? $cssFilePath : false;
 		}
-		return $cssFile;
+		return $cssFilePath;
 	}
 
 	/**
@@ -183,11 +183,10 @@ class StyleGeneratorService
 	 * @return bool|string  false on not founding the file
 	 */
 	public function getCssFileUrl(){
-		$uploadsDirectory = \Depicter::storage()->uploads();
-		$relativeFilePath = '/depicter/css/' . $this->getDocumentID() . '.css';
+		$cssFilePath = $this->getCssFilePath( true );
 
-		if( file_exists( $uploadsDirectory->getBaseDirectory() . $relativeFilePath ) ){
-			return $uploadsDirectory->getBaseUrl() . $relativeFilePath;
+		if( $cssFilePath !== false ){
+			return \Depicter::storage()->getCssUploadsUrl() . '/' . $this->getDocumentID() . '.css';
 		}
 
 		return false;

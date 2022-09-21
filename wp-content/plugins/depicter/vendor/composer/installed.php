@@ -1,7 +1,7 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '0.9.4',
-        'version' => '0.9.4.0',
+        'pretty_version' => '1.2.0',
+        'version' => '1.2.0.0',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -20,8 +20,8 @@
             'dev_requirement' => false,
         ),
         'averta/depicter' => array(
-            'pretty_version' => '0.9.4',
-            'version' => '0.9.4.0',
+            'pretty_version' => '1.2.0',
+            'version' => '1.2.0.0',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -29,12 +29,12 @@
             'dev_requirement' => false,
         ),
         'averta/wordpress' => array(
-            'pretty_version' => '1.1.20',
-            'version' => '1.1.20.0',
+            'pretty_version' => '1.2.1',
+            'version' => '1.2.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../averta/wordpress',
             'aliases' => array(),
-            'reference' => 'b20932f0d957a5446298d85d6921643d57dfa7e0',
+            'reference' => 'e7ae3951fe5e28f664f306cc17ff889654fcd0eb',
             'dev_requirement' => false,
         ),
         'composer/installers' => array(
@@ -226,12 +226,12 @@
             'dev_requirement' => false,
         ),
         'symfony/string' => array(
-            'pretty_version' => 'v5.4.11',
-            'version' => '5.4.11.0',
+            'pretty_version' => 'v5.4.12',
+            'version' => '5.4.12.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/string',
             'aliases' => array(),
-            'reference' => '5eb661e49ad389e4ae2b6e4df8d783a8a6548322',
+            'reference' => '2fc515e512d721bf31ea76bd02fe23ada4640058',
             'dev_requirement' => false,
         ),
         'typerocket/core' => array(

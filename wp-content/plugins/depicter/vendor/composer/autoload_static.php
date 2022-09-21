@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc3cde9e86106a3b28dc4b213f655e5b8
+class ComposerStaticInitab8a9c521574a4c782138513650c7e5f
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -541,6 +541,7 @@ class ComposerStaticInitc3cde9e86106a3b28dc4b213f655e5b8
         'Depicter\\Middleware\\CsrfAPIMiddleware' => __DIR__ . '/../..' . '/app/src/Middleware/CsrfAPIMiddleware.php',
         'Depicter\\Middleware\\MiddlewareServiceProvider' => __DIR__ . '/../..' . '/app/src/Middleware/MiddlewareServiceProvider.php',
         'Depicter\\Middleware\\NonceFieldMiddleware' => __DIR__ . '/../..' . '/app/src/Middleware/NonceFieldMiddleware.php',
+        'Depicter\\Modules\\Elementor\\Module' => __DIR__ . '/../..' . '/app/src/Modules/Elementor/Module.php',
         'Depicter\\Modules\\Elementor\\SliderWidget' => __DIR__ . '/../..' . '/app/src/Modules/Elementor/SliderWidget.php',
         'Depicter\\Modules\\ModulesServiceProvider' => __DIR__ . '/../..' . '/app/src/Modules/ModulesServiceProvider.php',
         'Depicter\\Psr\\Http\\Client\\ClientExceptionInterface' => __DIR__ . '/../..' . '/modules/Psr/Http/Client/ClientExceptionInterface.php',
@@ -560,6 +561,7 @@ class ComposerStaticInitc3cde9e86106a3b28dc4b213f655e5b8
         'Depicter\\Security\\CSRF' => __DIR__ . '/../..' . '/app/src/Security/CSRF.php',
         'Depicter\\Security\\SecurityServiceProvider' => __DIR__ . '/../..' . '/app/src/Security/SecurityServiceProvider.php',
         'Depicter\\Services\\AssetsAPIService' => __DIR__ . '/../..' . '/app/src/Services/AssetsAPIService.php',
+        'Depicter\\Services\\AuthorizationService' => __DIR__ . '/../..' . '/app/src/Services/AuthorizationService.php',
         'Depicter\\Services\\ClientService' => __DIR__ . '/../..' . '/app/src/Services/ClientService.php',
         'Depicter\\Services\\DocumentFontsService' => __DIR__ . '/../..' . '/app/src/Services/DocumentFontsService.php',
         'Depicter\\Services\\DocumentFontsV1Service' => __DIR__ . '/../..' . '/app/src/Services/DocumentFontsV1Service.php',
@@ -1128,10 +1130,10 @@ class ComposerStaticInitc3cde9e86106a3b28dc4b213f655e5b8
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc3cde9e86106a3b28dc4b213f655e5b8::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc3cde9e86106a3b28dc4b213f655e5b8::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitc3cde9e86106a3b28dc4b213f655e5b8::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitc3cde9e86106a3b28dc4b213f655e5b8::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitab8a9c521574a4c782138513650c7e5f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitab8a9c521574a4c782138513650c7e5f::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitab8a9c521574a4c782138513650c7e5f::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitab8a9c521574a4c782138513650c7e5f::$classMap;
 
         }, null, ClassLoader::class);
     }

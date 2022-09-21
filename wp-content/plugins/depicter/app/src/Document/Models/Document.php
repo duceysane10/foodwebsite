@@ -250,6 +250,7 @@ class Document implements HydratableInterface
 
 		$documentStyles = [
 			'.'. $this->getStyleSelector() => $this->options->getStyles(),
+			'.'. $this->getStyleSelector() . ' .depicter-section' => $this->options->getSectionGeneralStyles(),
 			'.'. $this->getStyleSelector( true ) . ':not(.depicter-ready)' => $this->options->getBeforeInitStyles(), // styles to prevent FOUC. It should not have depicter-revert class in selector
 			'.'. $this->getStyleSelector() . ' .depicter-layers-wrapper' => $this->options->getLayersWrapperStyles()
 		];
@@ -407,7 +408,7 @@ class Document implements HydratableInterface
     {
         $documentCustomStyles = [];
 
-        if( in_array( $fileKeysToInclude, ['all', '*'])  ){
+        if( is_string( $fileKeysToInclude ) && in_array( $fileKeysToInclude, [ 'all', '*'] )  ){
         	$fileKeysToInclude = ['google-font', 'custom'];
         }
 

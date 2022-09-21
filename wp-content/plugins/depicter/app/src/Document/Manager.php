@@ -74,6 +74,40 @@ class Manager
 	}
 
 	/**
+	 * Converts document slug or alias to document ID
+	 *
+	 * @param string|array $documentIDs  A document ID/Slug/Alias or list of them
+	 *
+	 * @return mixed
+	 */
+	public function getID( $documentIDs ){
+		if( empty( $documentIDs ) ){
+			return false;
+		}
+
+		try{
+			if( is_array( $documentIDs ) ){
+				$realDocumentIDs = [];
+				foreach( $documentIDs as $documentID ){
+					$realDocumentIDs = $this->getID( $documentID );
+				}
+				return $realDocumentIDs;
+
+			} elseif ( ! is_numeric( $documentIDs ) && is_string( $documentIDs ) ) {
+				if ( $document = \Depicter::document()->repository()->findOne( null, ['slug' => $documentIDs] ) ) {
+					return $document->getID();
+				}
+			} else {
+				return $documentIDs;
+			}
+		} catch( \Exception $e ){
+			return false;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Get a document model by ID
 	 *
 	 * @param       $documentId

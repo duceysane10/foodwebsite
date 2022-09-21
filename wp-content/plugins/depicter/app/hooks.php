@@ -90,3 +90,20 @@ function depicter_clear_cache_by_cache_enabler() {
 	}
 }
 add_action( 'init', 'depicter_clear_cache_by_cache_enabler' );
+
+
+add_filter( 'style_loader_tag',  'depicter_add_preload_to_styles', 10, 2 );
+function depicter_add_preload_to_styles( $html, $handle ){
+    if (strpos( $handle, 'depicter--') === 0) {
+        $html = str_replace("rel='stylesheet'", 'rel="preload" as="style" onload="this.rel=\'stylesheet\';this.onload=null"', $html);
+    }
+    return $html;
+}
+
+function depicter_add_defer_to_scripts( $tag, $handle ) {
+	if ( strpos( $handle, 'depicter--') === 0 ) {
+        $tag = str_replace(' src=', ' defer src=', $tag );
+    }
+    return $tag;
+}
+add_filter( 'script_loader_tag', 'depicter_add_defer_to_scripts', 15, 2 );

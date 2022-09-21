@@ -17,6 +17,7 @@ class EditorAssets
 	}
 
 	public function enqueueAdminAssets(){
+		global $wp_version;
 
 		// This will enqueue the Media Uploader script
 		wp_enqueue_media();
@@ -47,52 +48,33 @@ class EditorAssets
 		$currentUser = wp_get_current_user();
 
 		// Add Environment variables
-		wp_add_inline_script( 'depicter-editor-vendors', 'window.depicterEditorEnv = '. JSON::encode(
-			Arr::merge( $this->getCommonEnvParams(), [
+		wp_add_inline_script( 'depicter-editor-vendors', 'window.depicterEnv = '. JSON::encode(
+			[
+				'wpVersion'   => $wp_version,
+				"scriptsPath" => \Depicter::core()->assets()->getUrl(). '/resources/scripts/editor/',
+				'pluginAPI'   => admin_url( 'admin-ajax.php' ),
+				'clientKey'   => \Depicter::options()->get( 'client_key', 'anon' ),
+				'csrfToken'   => \Depicter::csrf()->getToken( CSRF::EDITOR_ACTION ),
+				'updateInfo' => [
+					'from' => \Depicter::options()->get('version_previous') ?: null,
+					'to'   => \Depicter::options()->get('version')
+				],
 				"assetsAPI"   => Escape::url('https://api.wp.depicter.com/' ),
-				"useMockData" => false,
 				"wpRestAPI"   => Escape::url( get_rest_url() ),
 				"dashboardURL"=> Escape::url( menu_page_url('depicter-dashboard', false) ),
 				"documentId"  => Data::cast( Sanitize::key( $_GET['document'] ), 'int' ),
 				'user' => [
-					'subscriptionPlan' => \Depicter::options()->get('user_plan', 'free-user'),
+					'tier'  => \Depicter::options()->get('user_plan', 'free-user'),
 					'name'  => Escape::html( $currentUser->display_name ),
 					'email' => Escape::html( $currentUser->user_email   ),
-					'hasSubscribed' => !! \Depicter::options()->get('has_subscribed')
+					'joinedNewsletter' => !! \Depicter::options()->get('has_subscribed')
+				],
+				'integrations' => [
+					'woocommerce' => Plugin::isActive( 'woocommerce/woocommerce.php' )
 				]
-			])
-		), 'before' );
-
-		wp_add_inline_script( 'depicter-editor-vendors', 'window.depicterKitEnv = ' . JSON::encode(
-			Arr::merge( $this->getCommonEnvParams(), [
-				'user' => [
-					'subscriptionPlan' => \Depicter::options()->get('user_plan', 'free-user')
-				]
-			])
-		), 'before' );
-	}
-
-	/**
-	 * Get common ENV variables
-	 *
-	 * @return array
-	 */
-	protected function getCommonEnvParams(){
-		global $wp_version;
-
-		return [
-			'wpVersion'   => $wp_version,
-			"scriptsPath" => \Depicter::core()->assets()->getUrl(). '/resources/scripts/editor/',
-			'editorAPI'   => admin_url( 'admin-ajax.php' ),
-			'clientKey'   => \Depicter::options()->get( 'client_key', 'anon' ),
-			'csrfToken'   => \Depicter::csrf()->getToken( CSRF::EDITOR_ACTION ),
-			'updateInfo' => [
-				'from' => \Depicter::options()->get('version_previous') ?: null,
-				'to'   => \Depicter::options()->get('version')
-			],
-			'integrations' => [
-				'woocommerce' => Plugin::isActive( 'woocommerce/woocommerce.php' )
 			]
-		];
+		), 'before' );
+
 	}
+
 }

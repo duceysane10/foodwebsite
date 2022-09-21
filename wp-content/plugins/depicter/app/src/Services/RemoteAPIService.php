@@ -86,7 +86,10 @@ class RemoteAPIService
 			$endpoint = $this->endpoint( $endpointNumber, $endpoint );
 		}
 
-		$client = new Client();
+		$client = new Client([
+			'verify' => ABSPATH . WPINC . '/certificates/ca-bundle.crt'
+		]);
+
 		$optionsWithAuth = Arr::merge( $options, $this->getDefaultOptions() );
 		$response = $client->get( $endpoint, $optionsWithAuth );
 
@@ -117,7 +120,9 @@ class RemoteAPIService
 			$endpoint = $this->endpoint( $endpointNumber, $endpoint );
 		}
 
-		$client = new Client();
+		$client = new Client([
+			'verify' => ABSPATH . WPINC . '/certificates/ca-bundle.crt'
+		]);
 		$optionsWithAuth = Arr::merge( $options, $this->getDefaultOptions() );
 		$response = $client->post( $endpoint, $optionsWithAuth );
 

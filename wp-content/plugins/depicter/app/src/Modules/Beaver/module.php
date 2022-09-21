@@ -30,22 +30,51 @@ class Module extends \FLBuilderModule {
 
         ) );
 
-        $styles = \Depicter::front()->assets()->registerStyles();
-        foreach ( $styles as $handler => $style ) {
-            $this->add_css( $handler );
+        add_action( 'wp_enqueue_scripts', [ $this, 'loadModuletScripts' ] );
+    }
+
+    /**
+     * Load module scripts when required
+     *
+     * @return void
+     */
+    public function loadModuletScripts() {
+        global $post;
+        if ( !\FLBuilderModel::is_builder_enabled( $post->ID ) ) {
+            return;
         }
 
-        $scripts = \Depicter::front()->assets()->registerScripts();
-        foreach ( $scripts as $handler => $script ) {
-            $this->add_js( $handler );
+        if ( strpos( $post->post_content, 'depicter-') || \FLBuilderModel::is_builder_active() ) {
+            $styles = \Depicter::front()->assets()->enqueueStyles();
+            foreach ( $styles as $handler => $style ) {
+                $this->add_css( $handler );
+            }
+
+            $flbuilder_data = get_post_meta( $post->ID, '_fl_builder_data', true);
+            $flbuilder_data = is_array( $flbuilder_data ) ? maybe_serialize( $flbuilder_data ) : $flbuilder_data;
+            preg_match_all( '/document_id";s:\d+:"(\d+)"/', $flbuilder_data, $sliderIDs, PREG_SET_ORDER );
+            foreach( $sliderIDs as $key => $sliderID ) {
+                if ( !empty( $sliderID[1] ) ) {
+                    if ( \Depicter::authorization()->currentUserCan( [ 'manage_options', 'publish_depicter' ] ) ) {
+                        \Depicter::front()->assets()->enqueueCustomGoogleFonts( $sliderID[1] );
+                    } else {
+                        \Depicter::front()->assets()->enqueueCustomStyles( $sliderID[1] );
+                    }
+                }
+            }
+
+            $scripts = \Depicter::front()->assets()->enqueueScripts();
+            foreach ( $scripts as $handler => $script ) {
+                $this->add_js( $handler );
+            }
         }
     }
 
     public static function getDepicterFields() {
-        if ( ! isset( $_GET['fl_builder'] ) ) { 
+        if ( ! isset( $_GET['fl_builder'] ) ) {
             return[];
         }
-        
+
         $list = [
 			0 => __( 'Select Slider', 'depicter' )
 		];
@@ -53,7 +82,7 @@ class Module extends \FLBuilderModule {
         foreach( $documents as $document ) {
 			$list[ $document['id'] ] = "[#{$document['id']}]: " . $document['name'];
 		}
-        
+
         $fields = [
             'document_id'   => [
                 'type'          => 'select',
@@ -68,7 +97,7 @@ class Module extends \FLBuilderModule {
                 'isNotPublished' => \Depicter::documentRepository()->isNotPublished( $document['id'], [ 'status' => 'publish' ] ),
                 'documentStatus' => $document['status']
             ];
-			
+
 			$markup = \Depicter::view('admin/notices/builders-draft-notice')->with('view_args', $args)->toString();
             $fields[ 'slider_control_buttons_' . $document['id'] ] =  [
                 'type'    => 'raw',

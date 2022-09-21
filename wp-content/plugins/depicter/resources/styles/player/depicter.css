@@ -130,29 +130,35 @@
 /* line 34, sass/partials/base/_layout.scss */
 .depicter-layout-fullscreen {
   height: 100vh;
-  max-height: none !important;
+}
+/* line 37, sass/partials/base/_layout.scss */
+.depicter-layout-fullscreen .depicter-view,
+.depicter-layout-fullscreen .depicter-section,
+.depicter-layout-fullscreen .depicter-sections,
+.depicter-layout-fullscreen .depicter-section-mask {
+  height: 100%;
 }
 
-/* line 39, sass/partials/base/_layout.scss */
+/* line 45, sass/partials/base/_layout.scss */
 .depicter-layout-auto {
   width: 100%;
   height: 100%;
 }
 
 /* ------------------------------------------------------------------------------ */
-/* line 46, sass/partials/base/_layout.scss */
+/* line 52, sass/partials/base/_layout.scss */
 .depicter-mid-row {
   display: flex;
   flex-flow: row wrap;
   flex: 1;
   order: 2;
 }
-/* line 52, sass/partials/base/_layout.scss */
+/* line 58, sass/partials/base/_layout.scss */
 .depicter-narrow-layout .depicter-mid-row {
   flex-flow: column wrap;
 }
 
-/* line 57, sass/partials/base/_layout.scss */
+/* line 63, sass/partials/base/_layout.scss */
 .depicter-inner-container {
   display: flex;
   flex-flow: column wrap;
@@ -160,23 +166,23 @@
   flex: 1;
 }
 
-/* line 64, sass/partials/base/_layout.scss */
+/* line 70, sass/partials/base/_layout.scss */
 .depicter-left-container,
 .depicter-top-container {
   order: 1;
 }
 
-/* line 69, sass/partials/base/_layout.scss */
+/* line 75, sass/partials/base/_layout.scss */
 .depicter-right-container,
 .depicter-bottom-container {
   order: 3;
 }
 
-/* line 75, sass/partials/base/_layout.scss */
+/* line 81, sass/partials/base/_layout.scss */
 .depicter-rtl .depicter-right-container {
   order: 1;
 }
-/* line 79, sass/partials/base/_layout.scss */
+/* line 85, sass/partials/base/_layout.scss */
 .depicter-rtl .depicter-left-container {
   order: 3;
 }
@@ -259,6 +265,8 @@
 
 /* line 6, sass/partials/section/_section.scss */
 .depicter-bg-container {
+  position: absolute;
+  width: 100%;
   height: 100%;
   pointer-events: none;
   -webkit-user-select: none;
@@ -266,23 +274,30 @@
   user-select: none;
 }
 
-/* line 25, sass/partials/section/_section.scss */
+/* line 27, sass/partials/section/_section.scss */
+.depicter-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* line 33, sass/partials/section/_section.scss */
 .depicter-section .depicter-bg-container > img {
   width: 100%;
   height: 100%;
   opacity: 0;
   transition: opacity 300ms;
 }
-/* line 32, sass/partials/section/_section.scss */
+/* line 40, sass/partials/section/_section.scss */
 .depicter-section.depicter-ready .depicter-bg-container > img {
   opacity: 1;
 }
-/* line 37, sass/partials/section/_section.scss */
+/* line 45, sass/partials/section/_section.scss */
 .depicter-section.depicter-section-hidden, .depicter-section.depicter-section-hidden * {
   visibility: hidden !important;
 }
 
-/* line 44, sass/partials/section/_section.scss */
+/* line 52, sass/partials/section/_section.scss */
 .depicter-section > a.depicter-section-link:not(.depicter-layer):not(.depicter-not-section-link):first-child {
   position: absolute;
   top: 0;
@@ -294,7 +309,7 @@
   overflow: hidden;
   text-indent: -100em;
 }
-/* line 57, sass/partials/section/_section.scss */
+/* line 65, sass/partials/section/_section.scss */
 .depicter-section > a.depicter-section-link:not(.depicter-layer):not(.depicter-not-section-link):first-child.depicter-over-all {
   z-index: 1000;
 }
@@ -302,29 +317,28 @@
 /* ------------------------------------------------------------------------------ */
 /* line 3, sass/partials/layers/_layer.scss */
 .depicter-layers-container {
-  position: absolute;
-  top: 0;
+  position: relative;
+  display: flex;
   width: 100%;
   height: 100%;
-  display: flex;
   align-items: center;
   flex-direction: row;
   pointer-events: none;
 }
 
-/* line 15, sass/partials/layers/_layer.scss */
+/* line 14, sass/partials/layers/_layer.scss */
 .depicter-fade-layers .depicter-layer-frame:not(.depicter-interactive-anim):not(.depicter-static) {
   transition: opacity 300ms, visibility 300ms;
   visibility: hidden;
   opacity: 0;
 }
-/* line 20, sass/partials/layers/_layer.scss */
+/* line 19, sass/partials/layers/_layer.scss */
 .depicter-fade-layers .depicter-active .depicter-layer-frame:not(.depicter-interactive-anim):not(.depicter-static) {
   opacity: 1;
   visibility: visible;
 }
 
-/* line 26, sass/partials/layers/_layer.scss */
+/* line 25, sass/partials/layers/_layer.scss */
 .depicter-layers-wrapper {
   position: relative;
   padding: 0 0;
@@ -334,110 +348,110 @@
   width: 100%;
 }
 
-/* line 35, sass/partials/layers/_layer.scss */
+/* line 34, sass/partials/layers/_layer.scss */
 .depicter-layers-fold {
   position: relative;
   height: 100%;
   pointer-events: none;
 }
-/* line 41, sass/partials/layers/_layer.scss */
+/* line 40, sass/partials/layers/_layer.scss */
 .depicter-layers-fold > * {
   pointer-events: all;
 }
 
-/* line 47, sass/partials/layers/_layer.scss */
+/* line 46, sass/partials/layers/_layer.scss */
 .depicter-content-first .depicter-layers-container {
   position: relative;
 }
-/* line 51, sass/partials/layers/_layer.scss */
+/* line 50, sass/partials/layers/_layer.scss */
 .depicter-content-first .depicter-layers-container,
 .depicter-content-first .depicter-layers-wrapper,
 .depicter-content-first .depicter-layers-fold {
   height: auto;
 }
-/* line 57, sass/partials/layers/_layer.scss */
+/* line 56, sass/partials/layers/_layer.scss */
 .depicter-content-first .depicter-bg-container {
   position: absolute;
   height: 100%;
   top: 0;
 }
 
-/* line 64, sass/partials/layers/_layer.scss */
+/* line 63, sass/partials/layers/_layer.scss */
 .depicter-layer-frame {
   visibility: visible;
 }
-/* line 65, sass/partials/layers/_layer.scss */
+/* line 64, sass/partials/layers/_layer.scss */
 .depicter-layer-frame.depicter-pos-absolute {
   position: absolute;
 }
-/* line 72, sass/partials/layers/_layer.scss */
+/* line 71, sass/partials/layers/_layer.scss */
 .depicter-layer-frame .depicter-mask-frame {
   overflow: hidden;
 }
-/* line 76, sass/partials/layers/_layer.scss */
+/* line 75, sass/partials/layers/_layer.scss */
 .depicter-layer-frame > a {
   text-decoration: none;
   color: inherit;
 }
 
-/* line 82, sass/partials/layers/_layer.scss */
+/* line 81, sass/partials/layers/_layer.scss */
 .depicter-relative-width *:not(.depicter-relative-width .depicter-layer *),
 .depicter-relative-width .depicter-relative-width *:not(.depicter-relative-width .depicter-relative-width .depicter-layer *) {
   width: 100%;
 }
 
-/* line 88, sass/partials/layers/_layer.scss */
+/* line 87, sass/partials/layers/_layer.scss */
 .depicter-relative-height *:not(.depicter-relative-height .depicter-layer *),
 .depicter-relative-height .depicter-relative-height *:not(.depicter-relative-height .depicter-relative-height .depicter-layer *) {
   height: 100%;
 }
 
-/* line 94, sass/partials/layers/_layer.scss */
+/* line 93, sass/partials/layers/_layer.scss */
 .depicter-layer.depicter-has-action {
   cursor: pointer;
 }
 
-/* line 100, sass/partials/layers/_layer.scss */
+/* line 99, sass/partials/layers/_layer.scss */
 .depicter-layer.depicter-layer-hidden, .depicter-layer.depicter-is-hidden,
 .depicter-layer-frame.depicter-layer-hidden,
 .depicter-layer-frame.depicter-is-hidden {
   visibility: hidden !important;
 }
-/* line 103, sass/partials/layers/_layer.scss */
+/* line 102, sass/partials/layers/_layer.scss */
 .depicter-layer.depicter-layer-hidden *, .depicter-layer.depicter-is-hidden *,
 .depicter-layer-frame.depicter-layer-hidden *,
 .depicter-layer-frame.depicter-is-hidden * {
   visibility: hidden !important;
 }
 
-/* line 109, sass/partials/layers/_layer.scss */
+/* line 108, sass/partials/layers/_layer.scss */
 .depicter-no-wrap {
   white-space: nowrap;
 }
 
-/* line 113, sass/partials/layers/_layer.scss */
+/* line 112, sass/partials/layers/_layer.scss */
 .depicter-fixed-layers {
   pointer-events: none;
 }
-/* line 116, sass/partials/layers/_layer.scss */
+/* line 115, sass/partials/layers/_layer.scss */
 .depicter-fixed-layers .depicter-layer {
   pointer-events: auto;
 }
 
-/* line 123, sass/partials/layers/_layer.scss */
+/* line 122, sass/partials/layers/_layer.scss */
 .depicter-float-width * {
   width: 100%;
 }
-/* line 126, sass/partials/layers/_layer.scss */
+/* line 125, sass/partials/layers/_layer.scss */
 .depicter-float-width .depicter-layer > * {
   width: auto;
 }
 
-/* line 132, sass/partials/layers/_layer.scss */
+/* line 131, sass/partials/layers/_layer.scss */
 .depicter-float-height * {
   height: 100%;
 }
-/* line 135, sass/partials/layers/_layer.scss */
+/* line 134, sass/partials/layers/_layer.scss */
 .depicter-float-height .depicter-layer > * {
   height: auto;
 }
@@ -717,6 +731,10 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 /* line 1, sass/partials/layers/_layer-animation.scss */

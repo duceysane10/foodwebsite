@@ -12,12 +12,16 @@ class Assets
 	 */
 	private $baseAssetsUrl = '';
 
+	/**
+	 * @var string
+	 */
+	private $version = DEPICTER_VERSION;
+
 
 	public function bootstrap()
 	{
 		$this->baseAssetsUrl = \Depicter::core()->assets()->getUrl();
-
-		add_action('wp_enqueue_scripts', [ $this, 'enqueueAssets' ]);
+		// add_action('wp_enqueue_scripts', [ $this, 'enqueueAssets' ]);
 	}
 
 	/**
@@ -76,7 +80,7 @@ class Assets
 		$styleUrls = $this->getStyles( $group );
 
 		foreach ( $styleUrls as $styleId => $styleUrl ) {
-			\Depicter::core()->assets()->enqueueStyle( $styleId, $styleUrl );
+			wp_enqueue_style( $styleId, $styleUrl, [], $this->version );
 		}
 
 		return $styleUrls;
@@ -92,46 +96,79 @@ class Assets
 	public function enqueueScripts( $group = 'player', $inFooter = true )
 	{
 		$scriptUrls = $this->getScripts( $group );
+
 		foreach ( $scriptUrls as $scriptId => $scriptUrl ){
-			\Depicter::core()->assets()->enqueueScript( $scriptId, $scriptUrl, [], $inFooter );
+			wp_enqueue_script( $scriptId, $scriptUrl, [], $this->version ,$inFooter );
 		}
 
 		return $scriptUrls;
 	}
 
 	/**
-	 * Registers a list of styles based on given group
+	 * Retrieves a list of custom styles for given slider IDs
 	 *
-	 * @param string|array  $group   A group name or list of groups in array
+	 * @param string|array $documentIDs  List of slider IDs for slugs
 	 *
 	 * @return array
 	 */
-	public function registerStyles( $group = 'common' )
+	public function getCustomStyles( $documentIDs )
 	{
-		$styleUrls = $this->getStyles( $group );
-
-		foreach ( $styleUrls as $styleId => $styleUrl ) {
-			wp_enqueue_style( $styleId, $styleUrl, [], false, false );
+		if( empty( $documentIDs ) ){
+			return [];
 		}
 
-		return $styleUrls;
+		if( $documentIDs = \Depicter::document()->getID( $documentIDs ) ){
+			$documentIDs = (array) $documentIDs;
+			$cssLinksToEnqueue = [];
+
+			foreach( $documentIDs as $documentID ){
+				if( false !== $cssLinkToEnqueue = \Depicter::cache('document')->get( $documentID . '_css_files' ) ){
+					$cssLinksToEnqueue = $cssLinksToEnqueue + $cssLinkToEnqueue;
+				}
+			}
+
+			return $cssLinksToEnqueue ;
+		}
+
+		return [];
 	}
 
 	/**
-	 * Registers a list of scripts based on given group
+	 * Enqueues a list of custom styles based on given document IDs
 	 *
-	 * @param string|array  $group   A group name or list of groups in array
+	 * @param string|array $documentIDs  List of slider IDs for slugs
 	 *
 	 * @return array
 	 */
-	public function registerScripts( $group = 'player' )
+	public function enqueueCustomStyles( $documentIDs )
 	{
-		$scriptUrls = $this->getScripts( $group );
-		foreach ( $scriptUrls as $scriptId => $scriptUrl ){
-			wp_enqueue_script( $scriptId, $scriptUrl, [], false,false );
+		$cssLinksToEnqueue = $this->getCustomStyles( $documentIDs );
+
+		foreach( $cssLinksToEnqueue as $cssId => $cssLink ){
+			\Depicter::core()->assets()->enqueueStyle( $cssId, $cssLink );
 		}
 
-		return $scriptUrls;
+		return $cssLinksToEnqueue;
+	}
+
+	/**
+	 * Enqueues custom google fonts for given document IDs
+	 *
+	 * @param string|array $documentIDs  List of slider IDs for slugs
+	 *
+	 * @return array
+	 */
+	public function enqueueCustomGoogleFonts( $documentIDs )
+	{
+		$cssLinksToEnqueue = $this->getCustomStyles( $documentIDs );
+
+		foreach( $cssLinksToEnqueue as $cssId => $cssLink ){
+			if ( false !== strpos( $cssId, 'google-font' ) ) {
+				\Depicter::core()->assets()->enqueueStyle( $cssId, $cssLink );
+			}
+		}
+
+		return $cssLinksToEnqueue;
 	}
 
 	/**
@@ -191,7 +228,7 @@ class Assets
 				'depicter-preview-style' => $this->baseAssetsUrl . '/resources/styles/player/preview.css'
 			],
 			'common' => [
-				'depicter-front-common' => $this->baseAssetsUrl . '/resources/styles/player/depicter.css'
+				'depicter--front-common' => $this->baseAssetsUrl . '/resources/styles/player/depicter.css'
 			]
 		];
 
@@ -207,7 +244,7 @@ class Assets
 	{
 		$scriptsDictionary = [
 			'player' => [
-				'depicter-player' => $this->baseAssetsUrl . '/resources/scripts/player/depicter.js'
+				'depicter--player' => $this->baseAssetsUrl . '/resources/scripts/player/depicter.js'
 			],
 			'widget' => [
 				'depicter-widget' => $this->baseAssetsUrl . '/resources/scripts/widgets/elementor-widget.js'

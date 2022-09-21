@@ -59,17 +59,17 @@
         },
         {
             "name": "averta/wordpress",
-            "version": "1.1.20",
-            "version_normalized": "1.1.20.0",
+            "version": "1.2.1",
+            "version_normalized": "1.2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/averta-lab/wordpress.git",
-                "reference": "b20932f0d957a5446298d85d6921643d57dfa7e0"
+                "reference": "e7ae3951fe5e28f664f306cc17ff889654fcd0eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/averta-lab/wordpress/zipball/b20932f0d957a5446298d85d6921643d57dfa7e0",
-                "reference": "b20932f0d957a5446298d85d6921643d57dfa7e0",
+                "url": "https://api.github.com/repos/averta-lab/wordpress/zipball/e7ae3951fe5e28f664f306cc17ff889654fcd0eb",
+                "reference": "e7ae3951fe5e28f664f306cc17ff889654fcd0eb",
                 "shasum": ""
             },
             "require": {
@@ -84,7 +84,7 @@
                 "phpunit/phpunit": "8.5.*",
                 "wp-coding-standards/wpcs": "^2.0"
             },
-            "time": "2022-08-17T10:05:14+00:00",
+            "time": "2022-09-13T09:56:08+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -115,7 +115,7 @@
             "support": {
                 "docs": "https://averta.net",
                 "issues": "https://github.com/averta-lab/wordpress/issues",
-                "source": "https://github.com/averta-lab/wordpress/tree/1.1.20"
+                "source": "https://github.com/averta-lab/wordpress/tree/1.2.1"
             },
             "install-path": "../averta/wordpress"
         },
@@ -1544,17 +1544,17 @@
         },
         {
             "name": "symfony/string",
-            "version": "v5.4.11",
-            "version_normalized": "5.4.11.0",
+            "version": "v5.4.12",
+            "version_normalized": "5.4.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "5eb661e49ad389e4ae2b6e4df8d783a8a6548322"
+                "reference": "2fc515e512d721bf31ea76bd02fe23ada4640058"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/5eb661e49ad389e4ae2b6e4df8d783a8a6548322",
-                "reference": "5eb661e49ad389e4ae2b6e4df8d783a8a6548322",
+                "url": "https://api.github.com/repos/symfony/string/zipball/2fc515e512d721bf31ea76bd02fe23ada4640058",
+                "reference": "2fc515e512d721bf31ea76bd02fe23ada4640058",
                 "shasum": ""
             },
             "require": {
@@ -1574,7 +1574,7 @@
                 "symfony/translation-contracts": "^1.1|^2",
                 "symfony/var-exporter": "^4.4|^5.0|^6.0"
             },
-            "time": "2022-07-24T16:15:25+00:00",
+            "time": "2022-08-12T17:03:11+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1613,7 +1613,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v5.4.11"
+                "source": "https://github.com/symfony/string/tree/v5.4.12"
             },
             "funding": [
                 {

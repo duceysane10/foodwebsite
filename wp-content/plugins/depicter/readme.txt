@@ -4,7 +4,7 @@ Tags: slider, image slider, wordpress slider, post slider, layer slider, respons
 Requires at least: 4.9.0
 Tested up to: WordPress 6.0.1
 Requires PHP: 7.2.5
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPL-2.0-only
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,7 @@ Depicter is a free SEO friendly, responsive image and video slider that truly wo
 - **Expert Support**- Our expert support team ready to help you. Ask your questions in the support forum, or contact us directly through live chat and our exclusive help desk.
 
 = Translation =
+- Translated into German
 - Start translating Depicter in [WordPress translation service](https://translate.wordpress.org/projects/wp-plugins/depicter/).
 
 = Featured on =
@@ -73,8 +74,31 @@ Bugs can be reported in our [support forums](https://wordpress.org/support/plugi
 
 == Changelog ==
 
+### 1.3.0
+- *Released: 2022-09-21*
+- **Added**
+- Now, you can set the full-screen layout above margin calculates automatically.
+- Now, the auto height feature gets enabled automatically. Just increase the content height of a slide and see the result on a boxed or full-width layout.
+- Added "Adaptive height" option. It deprecates the old "Aspect ratio" option and improves elements resizing on different device screens.
+- Added the possibility of dropping photos over video elements.
+- Now you can change swiping direction regardless of the sliding transition direction.
+- Added option of going to the next slide after the video ends to the video and embedding video elements.
+- You can also add custom class names to the elements. It helps you connect them to third-party scripts.
+- Now copying and pasting styles covers element sizes too.
+- You can also find vertical navigation arrows in the left side panel.
+- If a page does not have Depicter slider, Depicter assets do not load on that page.
+- **Improved**
+- The CSS code snippets now have copy button.
+- Improved overall performance of moving and aligning elements on the editor.
+- Improved keyboard navigation behavior.
+- Page speed improvements for slider applied.
+- **Fixed**
+- SSL certificate error while importing templates fixed. 
+- An issue with rending self-hosted videos cover photo on the editor.
+- Fixed an issue with overlapping slider preview with the preview modal.
+
 ### 1.2.0
-- *Released: 2022-08-31*
+- *Released: 2022-09-05*
 - **Added**
 - Now you can publish or rename a slider directly from the dashboard area.
 - You can find slider shortcode in the dashboard area too.

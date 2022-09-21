@@ -25,14 +25,20 @@ class Video extends Models\Element
 			$elementsAttrs['data-auto-pause'] = $this->options->autoPause ? "true" : "false";
 		}
 
+		if( isset( $this->options->goNextSection ) ){
+			$elementsAttrs['data-goto-next'] = $this->options->goNextSection ? "true" : "false";
+		}
+		if( isset( $this->options->loop ) ){
+			$elementsAttrs['data-loop'] = $this->options->loop ? "true" : "false";
+		} else {
+			$elementsAttrs['data-loop'] = "true";
+		}
+
 		$videoAttrs = [
 			'src'     => Depicter::media()->getSourceUrl( $this->options->source ),
 			'preload' => 'metadata'
 		];
 
-		if( !empty( $this->options->loop ) ){
-			$videoAttrs['loop'] = $this->options->loop ? "true" : "false";
-		}
 		if( !empty( $this->options->controls ) ){
 			$videoAttrs['controls'] = "";
 		}
@@ -44,7 +50,7 @@ class Video extends Models\Element
 		if ( isset( $elementsAttrs['data-height'] ) ) {
 			$elementsAttrs['data-height'] = 'auto,,';
 		}
-		
+
 		$div = Html::div( $elementsAttrs );
 
 		$video = "\n\t" . Html::video( $videoAttrs ) . "\n";
