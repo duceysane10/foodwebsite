@@ -1,0 +1,1274 @@
+@namespace svg 'http://www.w3.org/2000/svg';
+/*! From https://github.com/andy-piccalilli/modern-css-reset */
+/* line 55, sass/_revert-styles.scss */
+.depicter-revert {
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  direction: ltr;
+  /* Remove default margin */
+  /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+  /* A elements that don't have a class get default styles */
+  /* Make images easier to work with */
+  /* Inherit fonts for inputs and buttons */
+}
+/* line 56, sass/_revert-styles.scss */
+.depicter-revert,
+.depicter-revert h1,
+.depicter-revert h2,
+.depicter-revert h3,
+.depicter-revert h4,
+.depicter-revert h5,
+.depicter-revert h6,
+.depicter-revert p,
+.depicter-revert figure,
+.depicter-revert blockquote,
+.depicter-revert dl,
+.depicter-revert dd,
+.depicter-revert ul[role='list'],
+.depicter-revert ol[role='list'],
+.depicter-revert img,
+.depicter-revert picture,
+.depicter-revert input,
+.depicter-revert button,
+.depicter-revert textarea,
+.depicter-revert table,
+.depicter-revert td,
+.depicter-revert tr,
+.depicter-revert th,
+.depicter-revert tbody,
+.depicter-revert thead,
+.depicter-revert nav,
+.depicter-revert aside,
+.depicter-revert strong,
+.depicter-revert select {
+  all: revert;
+}
+/* line 9, sass/_revert-styles.scss */
+.depicter-revert *,
+.depicter-revert *::before,
+.depicter-revert *::after {
+  box-sizing: border-box;
+}
+/* line 16, sass/_revert-styles.scss */
+.depicter-revert h1,
+.depicter-revert h2,
+.depicter-revert h3,
+.depicter-revert h4,
+.depicter-revert p,
+.depicter-revert figure,
+.depicter-revert blockquote,
+.depicter-revert dl,
+.depicter-revert dd {
+  margin: 0;
+  font-weight: normal;
+}
+/* line 30, sass/_revert-styles.scss */
+.depicter-revert ul[role='list'],
+.depicter-revert ol[role='list'] {
+  list-style: none;
+}
+/* line 36, sass/_revert-styles.scss */
+.depicter-revert a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+/* line 41, sass/_revert-styles.scss */
+.depicter-revert img,
+.depicter-revert picture {
+  display: block;
+}
+/* line 47, sass/_revert-styles.scss */
+.depicter-revert input,
+.depicter-revert button,
+.depicter-revert textarea,
+.depicter-revert select {
+  font: inherit;
+}
+
+/* line 1, sass/partials/base/_depicter.scss */
+.depicter {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------------------------ */
+/* line 3, sass/partials/base/_layout.scss */
+.depicter-content-composer {
+  position: relative;
+}
+/* line 6, sass/partials/base/_layout.scss */
+.depicter-content-composer:focus {
+  outline: none;
+}
+
+/* line 11, sass/partials/base/_layout.scss */
+.depicter-primary-container {
+  display: flex;
+  flex-flow: column wrap;
+  clear: both;
+  overflow: hidden;
+  height: 100%;
+}
+
+/* line 19, sass/partials/base/_layout.scss */
+.depicter-overflow-fix {
+  overflow-x: hidden;
+}
+
+/* line 23, sass/partials/base/_layout.scss */
+.depicter-view-container {
+  flex: 1 1 auto;
+  order: 2;
+}
+
+/* line 28, sass/partials/base/_layout.scss */
+.depicter-layout-fullscreen,
+.depicter-layout-fullwidth {
+  width: 100vw;
+  max-width: none !important;
+}
+
+/* line 34, sass/partials/base/_layout.scss */
+.depicter-layout-fullscreen {
+  height: 100vh;
+  max-height: none !important;
+}
+
+/* line 39, sass/partials/base/_layout.scss */
+.depicter-layout-auto {
+  width: 100%;
+  height: 100%;
+}
+
+/* ------------------------------------------------------------------------------ */
+/* line 46, sass/partials/base/_layout.scss */
+.depicter-mid-row {
+  display: flex;
+  flex-flow: row wrap;
+  flex: 1;
+  order: 2;
+}
+/* line 52, sass/partials/base/_layout.scss */
+.depicter-narrow-layout .depicter-mid-row {
+  flex-flow: column wrap;
+}
+
+/* line 57, sass/partials/base/_layout.scss */
+.depicter-inner-container {
+  display: flex;
+  flex-flow: column wrap;
+  order: 2;
+  flex: 1;
+}
+
+/* line 64, sass/partials/base/_layout.scss */
+.depicter-left-container,
+.depicter-top-container {
+  order: 1;
+}
+
+/* line 69, sass/partials/base/_layout.scss */
+.depicter-right-container,
+.depicter-bottom-container {
+  order: 3;
+}
+
+/* line 75, sass/partials/base/_layout.scss */
+.depicter-rtl .depicter-right-container {
+  order: 1;
+}
+/* line 79, sass/partials/base/_layout.scss */
+.depicter-rtl .depicter-left-container {
+  order: 3;
+}
+
+/* ------------------------------------------------------------------------------ */
+/* line 3, sass/partials/views/_view.scss */
+.depicter-view-container {
+  position: relative;
+}
+
+/* line 7, sass/partials/views/_view.scss */
+.depicter-view {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -depicter-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+/* line 19, sass/partials/views/_view.scss */
+.depicter-sections {
+  will-change: transform;
+}
+
+/* line 24, sass/partials/views/_view.scss */
+.depicter-auto-height .depicter-view {
+  transition: height 300ms;
+}
+
+/* ------------------------------------------------------------------------------ */
+/* line 32, sass/partials/views/_view.scss */
+.depicter-stack-view .depicter-sections {
+  transform-style: preserve-3d;
+}
+
+/* line 37, sass/partials/views/_view.scss */
+.depicter-transform-view {
+  perspective: 2000px;
+}
+/* line 39, sass/partials/views/_view.scss */
+.depicter-transform-view .depicter-sections {
+  transform-style: preserve-3d;
+}
+
+/* line 45, sass/partials/views/_view.scss */
+.depicter-mask-view .depicter-section-mask {
+  overflow: hidden;
+  position: absolute;
+  pointer-events: none;
+}
+/* line 49, sass/partials/views/_view.scss */
+.depicter-mask-view .depicter-section-mask .depicter-section {
+  position: relative;
+}
+
+/* line 55, sass/partials/views/_view.scss */
+.depicter-cube-view {
+  perspective: 2000px;
+}
+/* line 57, sass/partials/views/_view.scss */
+.depicter-cube-view .depicter-sections {
+  perspective: 2000px;
+  transform-style: preserve-3d;
+  perspective-origin: center;
+  height: 100%;
+}
+/* line 64, sass/partials/views/_view.scss */
+.depicter-cube-view .depicter-section {
+  backface-visibility: hidden;
+}
+
+/* line 1, sass/partials/section/_section.scss */
+.depicter-section {
+  position: absolute;
+  overflow: hidden;
+}
+
+/* line 6, sass/partials/section/_section.scss */
+.depicter-bg-container {
+  height: 100%;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* line 25, sass/partials/section/_section.scss */
+.depicter-section .depicter-bg-container > img {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 300ms;
+}
+/* line 32, sass/partials/section/_section.scss */
+.depicter-section.depicter-ready .depicter-bg-container > img {
+  opacity: 1;
+}
+/* line 37, sass/partials/section/_section.scss */
+.depicter-section.depicter-section-hidden, .depicter-section.depicter-section-hidden * {
+  visibility: hidden !important;
+}
+
+/* line 44, sass/partials/section/_section.scss */
+.depicter-section > a.depicter-section-link:not(.depicter-layer):not(.depicter-not-section-link):first-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  overflow: hidden;
+  text-indent: -100em;
+}
+/* line 57, sass/partials/section/_section.scss */
+.depicter-section > a.depicter-section-link:not(.depicter-layer):not(.depicter-not-section-link):first-child.depicter-over-all {
+  z-index: 1000;
+}
+
+/* ------------------------------------------------------------------------------ */
+/* line 3, sass/partials/layers/_layer.scss */
+.depicter-layers-container {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  pointer-events: none;
+}
+
+/* line 15, sass/partials/layers/_layer.scss */
+.depicter-fade-layers .depicter-layer-frame:not(.depicter-interactive-anim):not(.depicter-static) {
+  transition: opacity 300ms, visibility 300ms;
+  visibility: hidden;
+  opacity: 0;
+}
+/* line 20, sass/partials/layers/_layer.scss */
+.depicter-fade-layers .depicter-active .depicter-layer-frame:not(.depicter-interactive-anim):not(.depicter-static) {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* line 26, sass/partials/layers/_layer.scss */
+.depicter-layers-wrapper {
+  position: relative;
+  padding: 0 0;
+  box-sizing: content-box;
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+}
+
+/* line 35, sass/partials/layers/_layer.scss */
+.depicter-layers-fold {
+  position: relative;
+  height: 100%;
+  pointer-events: none;
+}
+/* line 41, sass/partials/layers/_layer.scss */
+.depicter-layers-fold > * {
+  pointer-events: all;
+}
+
+/* line 47, sass/partials/layers/_layer.scss */
+.depicter-content-first .depicter-layers-container {
+  position: relative;
+}
+/* line 51, sass/partials/layers/_layer.scss */
+.depicter-content-first .depicter-layers-container,
+.depicter-content-first .depicter-layers-wrapper,
+.depicter-content-first .depicter-layers-fold {
+  height: auto;
+}
+/* line 57, sass/partials/layers/_layer.scss */
+.depicter-content-first .depicter-bg-container {
+  position: absolute;
+  height: 100%;
+  top: 0;
+}
+
+/* line 64, sass/partials/layers/_layer.scss */
+.depicter-layer-frame {
+  visibility: visible;
+}
+/* line 65, sass/partials/layers/_layer.scss */
+.depicter-layer-frame.depicter-pos-absolute {
+  position: absolute;
+}
+/* line 72, sass/partials/layers/_layer.scss */
+.depicter-layer-frame .depicter-mask-frame {
+  overflow: hidden;
+}
+/* line 76, sass/partials/layers/_layer.scss */
+.depicter-layer-frame > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* line 82, sass/partials/layers/_layer.scss */
+.depicter-relative-width *:not(.depicter-relative-width .depicter-layer *),
+.depicter-relative-width .depicter-relative-width *:not(.depicter-relative-width .depicter-relative-width .depicter-layer *) {
+  width: 100%;
+}
+
+/* line 88, sass/partials/layers/_layer.scss */
+.depicter-relative-height *:not(.depicter-relative-height .depicter-layer *),
+.depicter-relative-height .depicter-relative-height *:not(.depicter-relative-height .depicter-relative-height .depicter-layer *) {
+  height: 100%;
+}
+
+/* line 94, sass/partials/layers/_layer.scss */
+.depicter-layer.depicter-has-action {
+  cursor: pointer;
+}
+
+/* line 100, sass/partials/layers/_layer.scss */
+.depicter-layer.depicter-layer-hidden, .depicter-layer.depicter-is-hidden,
+.depicter-layer-frame.depicter-layer-hidden,
+.depicter-layer-frame.depicter-is-hidden {
+  visibility: hidden !important;
+}
+/* line 103, sass/partials/layers/_layer.scss */
+.depicter-layer.depicter-layer-hidden *, .depicter-layer.depicter-is-hidden *,
+.depicter-layer-frame.depicter-layer-hidden *,
+.depicter-layer-frame.depicter-is-hidden * {
+  visibility: hidden !important;
+}
+
+/* line 109, sass/partials/layers/_layer.scss */
+.depicter-no-wrap {
+  white-space: nowrap;
+}
+
+/* line 113, sass/partials/layers/_layer.scss */
+.depicter-fixed-layers {
+  pointer-events: none;
+}
+/* line 116, sass/partials/layers/_layer.scss */
+.depicter-fixed-layers .depicter-layer {
+  pointer-events: auto;
+}
+
+/* line 123, sass/partials/layers/_layer.scss */
+.depicter-float-width * {
+  width: 100%;
+}
+/* line 126, sass/partials/layers/_layer.scss */
+.depicter-float-width .depicter-layer > * {
+  width: auto;
+}
+
+/* line 132, sass/partials/layers/_layer.scss */
+.depicter-float-height * {
+  height: 100%;
+}
+/* line 135, sass/partials/layers/_layer.scss */
+.depicter-float-height .depicter-layer > * {
+  height: auto;
+}
+
+/* line 2, sass/partials/layers/_image.scss */
+.depicter-image-layer .depicter-layer {
+  width: 100%;
+  height: 100%;
+}
+/* line 7, sass/partials/layers/_image.scss */
+.depicter-image-layer .depicter-layer:not(.depicter-is-hidden) img {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 150ms ease-out;
+}
+/* line 12, sass/partials/layers/_image.scss */
+.depicter-image-layer .depicter-layer:not(.depicter-is-hidden) img.depicter-loaded {
+  opacity: 1;
+  visibility: visible;
+}
+/* line 21, sass/partials/layers/_image.scss */
+.depicter-image-layer picture {
+  overflow: hidden;
+}
+/* line 25, sass/partials/layers/_image.scss */
+.depicter-image-layer img {
+  position: relative;
+  min-width: 100%;
+}
+
+/* line 2, sass/partials/layers/_shape-layer.scss */
+.depicter-shape-layer svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* line 2, sass/partials/layers/_video-layer.scss */
+.depicter-video-layer iframe {
+  border: none;
+}
+/* line 6, sass/partials/layers/_video-layer.scss */
+.depicter-video-layer iframe,
+.depicter-video-layer img {
+  width: 100%;
+  height: 100%;
+}
+/* line 12, sass/partials/layers/_video-layer.scss */
+.depicter-video-layer img {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  object-fit: cover;
+  transition: opacity 400ms, visibility 400ms;
+}
+/* line 20, sass/partials/layers/_video-layer.scss */
+.depicter-video-layer .depicter-layer {
+  overflow: hidden;
+}
+/* line 24, sass/partials/layers/_video-layer.scss */
+.depicter-video-layer .depicter-video-player {
+  z-index: 1;
+}
+/* line 28, sass/partials/layers/_video-layer.scss */
+.depicter-video-layer .depicter-video-btn {
+  transition: opacity 400ms, visibility 400ms;
+}
+/* line 33, sass/partials/layers/_video-layer.scss */
+.depicter-video-layer video {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* line 40, sass/partials/layers/_video-layer.scss */
+.depicter-video-layer .depicter-playing img,
+.depicter-video-layer .depicter-playing .depicter-video-btn {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* line 1, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-layer {
+  cursor: pointer;
+}
+/* line 4, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-layer .depicter-hotspot-point {
+  position: relative;
+  transform: translateX(-50%) translateY(-50%);
+}
+/* line 9, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-layer .depicter-point-center {
+  width: 20px;
+  height: 20px;
+  background: #dedede;
+  border-radius: 50%;
+}
+
+/* line 17, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-tooltip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 900ms cubic-bezier(0.19, 1, 0.22, 1), transform 900ms cubic-bezier(0.19, 1, 0.22, 1), visibility 900ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+/* line 36, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-tooltip .depicter-tooltip-cont {
+  position: relative;
+  padding: 10px;
+  background: rgba(240, 240, 240, 0.88);
+  text-shadow: 0 1px 0px white;
+  pointer-events: auto;
+}
+/* line 44, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: -12px;
+  display: block;
+  transform-origin: center -15px;
+  width: 0;
+  height: 0;
+  border-bottom: 10px solid rgba(240, 240, 240, 0.88);
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+}
+/* line 54, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-tooltip.depicter-align-right {
+  transform: translateX(50px);
+}
+/* line 57, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-tooltip.depicter-align-right::after {
+  transform: rotate(-90deg);
+}
+/* line 61, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-tooltip.depicter-align-right .depicter-tooltip-cont {
+  transform: translateY(-50%) translateX(25px);
+}
+/* line 66, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-tooltip.depicter-align-left {
+  transform: translateX(-50px);
+}
+/* line 69, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-tooltip.depicter-align-left::after {
+  transform: rotate(90deg);
+}
+/* line 73, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-tooltip.depicter-align-left .depicter-tooltip-cont {
+  transform: translateY(-50%) translateX(-100%) translateX(-25px);
+}
+/* line 78, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-tooltip.depicter-align-bottom {
+  transform: translateY(50px);
+}
+/* line 81, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-tooltip.depicter-align-bottom .depicter-tooltip-cont {
+  transform: translateX(-50%) translateY(25px);
+}
+/* line 86, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-tooltip.depicter-align-top {
+  transform: translateY(-50px);
+}
+/* line 89, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-tooltip.depicter-align-top::after {
+  transform: rotate(180deg);
+}
+/* line 93, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-tooltip.depicter-align-top .depicter-tooltip-cont {
+  transform: translateX(-50%) translateY(-100%) translateY(-25px);
+}
+/* line 98, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-tooltip.depicter-tooltip-active {
+  transform: none;
+  opacity: 1;
+  visibility: visible;
+}
+/* line 104, sass/partials/layers/_hotspot-layer.scss */
+.depicter-hotspot-tooltip.depicter-no-transition {
+  transition: none !important;
+}
+
+/* line 1, sass/partials/layers/_arrow-layer.scss */
+.depicter-arrow-layer {
+  cursor: pointer;
+}
+/* line 4, sass/partials/layers/_arrow-layer.scss */
+.depicter-arrow-layer .depicter-layer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* line 2, sass/partials/layers/_bullets-layer.scss */
+.depicter-bullet-layer .depicter-layer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+/* line 8, sass/partials/layers/_bullets-layer.scss */
+.depicter-bullet-layer .depicter-bullet-item {
+  display: inline-block;
+  cursor: pointer;
+}
+/* line 12, sass/partials/layers/_bullets-layer.scss */
+.depicter-bullet-layer .depicter-bullet-item:last-of-type {
+  margin-right: 0;
+}
+
+/* line 2, sass/partials/layers/_lineTimer-layer.scss */
+.depicter-lineTimer-layer .depicter-layer {
+  overflow: hidden;
+}
+/* line 6, sass/partials/layers/_lineTimer-layer.scss */
+.depicter-lineTimer-layer .depicter-timer-bar {
+  height: 100%;
+  transition: width 200ms;
+}
+
+/* line 1, sass/partials/layers/_scroll-layer.scss */
+.depicter-scroll-layer {
+  cursor: pointer;
+}
+/* line 4, sass/partials/layers/_scroll-layer.scss */
+.depicter-scroll-layer .depicter-layer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* line 1, sass/partials/layers/_playAndPause-layer.scss */
+.depicter-playAndPause-layer {
+  cursor: pointer;
+}
+/* line 4, sass/partials/layers/_playAndPause-layer.scss */
+.depicter-playAndPause-layer .depicter-layer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* line 10, sass/partials/layers/_playAndPause-layer.scss */
+.depicter-playAndPause-layer svg {
+  display: none;
+}
+/* line 14, sass/partials/layers/_playAndPause-layer.scss */
+.depicter-playAndPause-layer .depicter-active {
+  display: inline-block;
+}
+
+/* ------------------------------------------------------------------------------ */
+/* line 3, sass/partials/layers/_button-layer.scss */
+.depicter-button-layer {
+  cursor: pointer;
+}
+/* line 6, sass/partials/layers/_button-layer.scss */
+.depicter-button-layer .depicter-layer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* line 1, sass/partials/layers/_flex.scss */
+.depicter-flex-layer .depicter-layer {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+/* ------------------------------------------------------------------------------ */
+/* line 3, sass/partials/layers/_overlay-layers.scss */
+.depicter-overlay-layers {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* line 1, sass/partials/layers/_layer-animation.scss */
+.depicter-animation-wrap {
+  visibility: visible;
+}
+
+/* ------------------------------------------------------------------------------ */
+/* line 5, sass/partials/ui/_elements.scss */
+.depicter-video-layer .depicter-video-btn, .depicter-section .depicter-section-video-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -23px;
+  margin-top: -23px;
+  width: 46px;
+  height: 46px;
+  background: #dedede;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+  z-index: 2;
+}
+/* line 20, sass/partials/ui/_elements.scss */
+.depicter-video-layer .depicter-video-btn::after, .depicter-section .depicter-section-video-btn::after {
+  content: '\25BA';
+  position: relative;
+  top: 1px;
+  left: 2px;
+  color: #666;
+  line-height: 46px;
+}
+
+/* line 30, sass/partials/ui/_elements.scss */
+.depicter-section .depicter-section-video-close-btn {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background: #666;
+  color: #dedede;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+/* line 41, sass/partials/ui/_elements.scss */
+.depicter-section .depicter-section-video-close-btn::after {
+  content: '\2715';
+  position: relative;
+  top: 1px;
+  line-height: 36px;
+}
+
+/* line 4, sass/partials/addons/_section-video.scss */
+.depicter-section .depicter-section-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background: #000;
+  transition: opacity 400ms, visibility 400ms;
+  visibility: hidden;
+  opacity: 0;
+}
+/* line 15, sass/partials/addons/_section-video.scss */
+.depicter-section .depicter-section-video-btn {
+  z-index: 101;
+  transition: opacity 400ms, visibility 400ms;
+}
+/* line 21, sass/partials/addons/_section-video.scss */
+.depicter-section .depicter-section-video-close-btn {
+  top: 2em;
+  right: 2em;
+  z-index: 102;
+  transition: opacity 400ms, visibility 400ms;
+  visibility: hidden;
+  opacity: 0;
+}
+/* line 30, sass/partials/addons/_section-video.scss */
+.depicter-section.depicter-video-open .depicter-section-video,
+.depicter-section.depicter-video-open .depicter-section-video-close-btn {
+  visibility: visible;
+  opacity: 1;
+}
+/* line 36, sass/partials/addons/_section-video.scss */
+.depicter-section.depicter-video-open .depicter-section-video-btn {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* line 1, sass/partials/addons/_loading.scss */
+.depicter-loading-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 10;
+}
+
+/* line 12, sass/partials/addons/_loading.scss */
+.depicter-content-composer > *,
+.depicter > *,
+.depicter-section > * {
+  transition: opacity 300ms, visibility 300ms;
+  opacity: 0;
+  visibility: hidden;
+}
+/* line 18, sass/partials/addons/_loading.scss */
+.depicter-content-composer > .depicter-loading-container,
+.depicter-content-composer > .depicter-section-loading,
+.depicter > .depicter-loading-container,
+.depicter > .depicter-section-loading,
+.depicter-section > .depicter-loading-container,
+.depicter-section > .depicter-section-loading {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* line 25, sass/partials/addons/_loading.scss */
+.depicter-content-composer,
+.depicter {
+  pointer-events: none;
+}
+/* line 29, sass/partials/addons/_loading.scss */
+.depicter-content-composer.depicter-ready,
+.depicter.depicter-ready {
+  pointer-events: all;
+}
+
+/* line 35, sass/partials/addons/_loading.scss */
+.depicter-ready > * {
+  opacity: 1;
+  visibility: visible;
+}
+/* line 40, sass/partials/addons/_loading.scss */
+.depicter-ready > .depicter-loading-container,
+.depicter-ready > .depicter-section-loading {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* line 48, sass/partials/addons/_loading.scss */
+.depicter-preload-all:not(.depicter-ready) > .depicter-primary-container * {
+  pointer-events: none !important;
+}
+
+/* line 1, sass/partials/addons/_section-background-video.scss */
+.depicter-bg-video-container {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+/* line 9, sass/partials/addons/_section-background-video.scss */
+.depicter-bg-video-container > video {
+  width: 100%;
+  height: 100%;
+}
+
+/* line 2, sass/partials/addons/_section-link.scss */
+.depicter-section > a:not(.depicter-layer):not(.depicter-not-section-link):first-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  overflow: hidden;
+  text-indent: -100em;
+}
+/* line 13, sass/partials/addons/_section-link.scss */
+.depicter-section > a:not(.depicter-layer):not(.depicter-not-section-link):first-child.depicter-over-all {
+  z-index: 1000;
+}
+
+@media screen and (min-width: 1025px) {
+  /* line 11, sass/partials/addons/_hide-on.scss */
+  .depicter-revert .depicter-hide-on-desktop, .depicter-revert.depicter-hide-on-desktop {
+    position: fixed;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    top: -100%;
+    left: -100%;
+  }
+}
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+  /* line 18, sass/partials/addons/_hide-on.scss */
+  .depicter-revert .depicter-hide-on-tablet, .depicter-revert.depicter-hide-on-tablet {
+    position: fixed;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    top: -100%;
+    left: -100%;
+  }
+}
+@media screen and (max-width: 767px) {
+  /* line 25, sass/partials/addons/_hide-on.scss */
+  .depicter-revert .depicter-hide-on-mobile, .depicter-revert.depicter-hide-on-mobile {
+    position: fixed;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    top: -100%;
+    left: -100%;
+  }
+}
+
+/* line 1, sass/partials/addons/_grab-cursor.scss */
+.depicter-cursor-grab {
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+/* line 6, sass/partials/addons/_grab-cursor.scss */
+.depicter-cursor-grabbing {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+
+/* line 2, sass/partials/addons/_auto-height.scss */
+.depicter-auto-height .depicter-primary-container {
+  height: auto;
+}
+
+/* line 1, sass/partials/addons/_actions.scss */
+.depicter-has-mouse-action {
+  cursor: pointer !important;
+  pointer-events: all !important;
+}
+
+/**
+This styles hide animative layers of not activated sections 
+*/
+/* line 6, sass/partials/addons/_hide-side-sections-layers.scss */
+.depicter-section:not(.depicter-active) .depicter-has-animation-in {
+  display: none;
+}
+
+/* line 12, ../../../shared/loadings/src/loadings/dotFlashing/styles.scss */
+.depicter-dot-flashing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+/* line 17, ../../../shared/loadings/src/loadings/dotFlashing/styles.scss */
+.depicter-dot-flashing span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 9px;
+  border-radius: 50%;
+}
+/* line 24, ../../../shared/loadings/src/loadings/dotFlashing/styles.scss */
+.depicter-dot-flashing span:last-of-type {
+  margin-right: 0;
+}
+/* line 30, ../../../shared/loadings/src/loadings/dotFlashing/styles.scss */
+.depicter-dot-flashing.depicter-loading-dark span {
+  background-color: #050a0e;
+}
+/* line 36, ../../../shared/loadings/src/loadings/dotFlashing/styles.scss */
+.depicter-dot-flashing.depicter-loading-light span {
+  background-color: #fff;
+}
+/* line 41, ../../../shared/loadings/src/loadings/dotFlashing/styles.scss */
+.depicter-dot-flashing span {
+  will-change: opacity;
+  animation: middleDotFlashing 1500ms infinite cubic-bezier(0.5, 0, 0.75, 0);
+}
+/* line 45, ../../../shared/loadings/src/loadings/dotFlashing/styles.scss */
+.depicter-dot-flashing span:first-of-type {
+  animation: firstDotFlashing 1500ms infinite cubic-bezier(0.5, 0, 0.75, 0);
+}
+/* line 49, ../../../shared/loadings/src/loadings/dotFlashing/styles.scss */
+.depicter-dot-flashing span:last-of-type {
+  animation: lastDotFlashing 1500ms infinite cubic-bezier(0.5, 0, 0.75, 0);
+}
+@keyframes firstDotFlashing {
+  0% {
+    opacity: 1;
+  }
+  33.3% {
+    opacity: 0.2;
+  }
+  66.6%,
+      100% {
+    opacity: 1;
+  }
+}
+@keyframes middleDotFlashing {
+  0%,
+      5% {
+    opacity: 1;
+  }
+  38.8% {
+    opacity: 0.2;
+  }
+  72.2%,
+      100% {
+    opacity: 1;
+  }
+}
+@keyframes lastDotFlashing {
+  0%,
+      23.3% {
+    opacity: 1;
+  }
+  56.6% {
+    opacity: 0.2;
+  }
+  90%,
+      100% {
+    opacity: 1;
+  }
+}
+/* line 13, ../../../shared/loadings/src/loadings/dotStraightSwing/styles.scss */
+.depicter-dot-straight-swing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+/* line 18, ../../../shared/loadings/src/loadings/dotStraightSwing/styles.scss */
+.depicter-dot-straight-swing span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 0;
+  border-radius: 50%;
+}
+/* line 25, ../../../shared/loadings/src/loadings/dotStraightSwing/styles.scss */
+.depicter-dot-straight-swing span:last-of-type {
+  margin-right: 0;
+}
+/* line 31, ../../../shared/loadings/src/loadings/dotStraightSwing/styles.scss */
+.depicter-dot-straight-swing.depicter-loading-dark span {
+  background-color: #050a0e;
+}
+/* line 37, ../../../shared/loadings/src/loadings/dotStraightSwing/styles.scss */
+.depicter-dot-straight-swing.depicter-loading-light span {
+  background-color: #fff;
+}
+/* line 42, ../../../shared/loadings/src/loadings/dotStraightSwing/styles.scss */
+.depicter-dot-straight-swing span {
+  will-change: transform;
+}
+/* line 45, ../../../shared/loadings/src/loadings/dotStraightSwing/styles.scss */
+.depicter-dot-straight-swing span:first-of-type {
+  animation: firstDotStraightSwing 1400ms infinite;
+}
+/* line 49, ../../../shared/loadings/src/loadings/dotStraightSwing/styles.scss */
+.depicter-dot-straight-swing span:last-of-type {
+  animation: lastDotStraightSwing 1400ms infinite;
+}
+@keyframes firstDotStraightSwing {
+  0% {
+    transform: translateX(-9px);
+    animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0);
+  }
+  33.3% {
+    transform: translateX(0);
+    animation-timing-function: linear;
+  }
+  62% {
+    transform: translateX(0);
+    animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  100% {
+    transform: translateX(-9px);
+  }
+}
+@keyframes lastDotStraightSwing {
+  0% {
+    transform: translateX(0);
+    animation-timing-function: linear;
+  }
+  33% {
+    transform: translateX(0);
+    animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  52% {
+    transform: translateX(9px);
+    animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0);
+  }
+  70%,
+      100% {
+    transform: translateX(0);
+    animation-timing-function: linear;
+  }
+}
+/* line 13, ../../../shared/loadings/src/loadings/dotSwing/styles.scss */
+.depicter-dot-swing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+/* line 18, ../../../shared/loadings/src/loadings/dotSwing/styles.scss */
+.depicter-dot-swing span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 0;
+  border-radius: 50%;
+}
+/* line 25, ../../../shared/loadings/src/loadings/dotSwing/styles.scss */
+.depicter-dot-swing span:last-of-type {
+  margin-right: 0;
+}
+/* line 31, ../../../shared/loadings/src/loadings/dotSwing/styles.scss */
+.depicter-dot-swing.depicter-loading-dark span {
+  background-color: #050a0e;
+}
+/* line 37, ../../../shared/loadings/src/loadings/dotSwing/styles.scss */
+.depicter-dot-swing.depicter-loading-light span {
+  background-color: #fff;
+}
+/* line 42, ../../../shared/loadings/src/loadings/dotSwing/styles.scss */
+.depicter-dot-swing span {
+  transform-origin: center -10px;
+  will-change: transform;
+}
+/* line 46, ../../../shared/loadings/src/loadings/dotSwing/styles.scss */
+.depicter-dot-swing span:first-of-type {
+  animation: firstDotSwing 2000ms infinite;
+}
+/* line 50, ../../../shared/loadings/src/loadings/dotSwing/styles.scss */
+.depicter-dot-swing span:last-of-type {
+  animation: lastDotSwing 2000ms infinite;
+}
+@keyframes firstDotSwing {
+  0% {
+    transform: rotate(45deg);
+    animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0);
+  }
+  23.3% {
+    transform: rotate(0);
+    animation-timing-function: linear;
+  }
+  74.1% {
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  100% {
+    transform: rotate(45deg);
+  }
+}
+@keyframes lastDotSwing {
+  0% {
+    transform: rotate(0);
+    animation-timing-function: linear;
+  }
+  23.3% {
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  49.1% {
+    transform: rotate(-45deg);
+    animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0);
+  }
+  74.1%,
+      100% {
+    transform: rotate(0);
+    animation-timing-function: linear;
+  }
+}
+/* line 15, ../../../shared/loadings/src/loadings/dotReplacing/styles.scss */
+.depicter-dot-replacing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+/* line 20, ../../../shared/loadings/src/loadings/dotReplacing/styles.scss */
+.depicter-dot-replacing span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 9px;
+  border-radius: 50%;
+}
+/* line 27, ../../../shared/loadings/src/loadings/dotReplacing/styles.scss */
+.depicter-dot-replacing span:last-of-type {
+  margin-right: 0;
+}
+/* line 33, ../../../shared/loadings/src/loadings/dotReplacing/styles.scss */
+.depicter-dot-replacing.depicter-loading-dark span {
+  background-color: #050a0e;
+}
+/* line 39, ../../../shared/loadings/src/loadings/dotReplacing/styles.scss */
+.depicter-dot-replacing.depicter-loading-light span {
+  background-color: #fff;
+}
+/* line 44, ../../../shared/loadings/src/loadings/dotReplacing/styles.scss */
+.depicter-dot-replacing span {
+  animation: middleDotReplacing 1500ms infinite cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+/* line 48, ../../../shared/loadings/src/loadings/dotReplacing/styles.scss */
+.depicter-dot-replacing span:first-of-type {
+  animation: firstDotReplacing 1500ms infinite cubic-bezier(0.76, 0, 0.24, 1);
+}
+/* line 52, ../../../shared/loadings/src/loadings/dotReplacing/styles.scss */
+.depicter-dot-replacing span:last-of-type {
+  animation: lastDotReplacing 1500ms infinite cubic-bezier(0.25, 1, 0.5, 1);
+}
+@keyframes firstDotReplacing {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(40px);
+  }
+}
+@keyframes middleDotReplacing {
+  0%,
+      38.8% {
+    transform: translateX(0);
+  }
+  66%,
+      100% {
+    transform: translateX(-20px);
+  }
+}
+@keyframes lastDotReplacing {
+  0%,
+      66% {
+    transform: translateX(0);
+  }
+  91.5%,
+      100% {
+    transform: translateX(-20px);
+  }
+}
+/* line 1, ../../../shared/loadings/src/styles/common.scss */
+.depicter-single-svg-loading {
+  max-width: 40px;
+  max-height: 40px;
+  width: 100%;
+}
+/* line 6, ../../../shared/loadings/src/styles/common.scss */
+.depicter-single-svg-loading.depicter-small {
+  max-width: 20px;
+  max-height: 20px;
+}
+
+/* line 7, sass/partials/loadings/_loading.scss */
+.depicter-loading-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

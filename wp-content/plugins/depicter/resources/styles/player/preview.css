@@ -1,0 +1,34 @@
+/* line 1, sass/preview.scss */
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+/* line 8, sass/preview.scss */
+body .depicter-document {
+  flex: auto;
+}
+/* line 12, sass/preview.scss */
+body .depicter-preview-canvas {
+  width: 100%;
+}
+/* line 14, sass/preview.scss */
+body .depicter-preview-canvas .depicter-layout-boxed {
+  margin: 0 auto;
+}
+
+/* line 20, sass/preview.scss */
+.depicter-no-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f2f5;
+  color: #a29fad;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  font-size: 1.2em;
+  height: 100vh;
+  width: 100%;
+}
